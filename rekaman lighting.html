@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Lighting Studio — Anest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #0b1712;
+  --bg2:    #0f1e17;
+  --green:  #00704a;
+  --green2: #005a3c;
+  --dim:    rgba(255,255,255,0.05);
+  --border: rgba(255,255,255,0.08);
+  --text:   rgba(255,255,255,0.88);
+  --muted:  rgba(255,255,255,0.38);
+  --faint:  rgba(255,255,255,0.10);
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── HERO 2 KOLOM OVERLAP DENGAN FADE ── */
+.hero-wrap-split {
+  position: relative;
+  width: 100%;
+  min-height: 440px;
+  background: var(--bg);
+  display: flex;
+  align-items: flex-end;
+  padding: 0 22px 30px;
+}
+.hero-img-col {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 75%; /* Mengisi area kanan dan masuk ke tengah */
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.6;
+  z-index: 1;
+  /* Gradasi fade agar menyatu dengan background gelap */
+  mask-image: linear-gradient(to right, transparent 0%, black 50%), linear-gradient(to top, transparent 15%, black 60%);
+  mask-composite: intersect;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 50%), linear-gradient(to top, transparent 15%, black 60%);
+  -webkit-mask-composite: source-in;
+}
+.hero-text-col {
+  position: relative;
+  z-index: 10;
+  width: 85%; /* Teks memakan area kiri dan menimpa gambar di belakangnya */
+}
+.hero-topbar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 52px 20px 0;
+  z-index: 20;
+}
+.back-pill {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 999px;
+  padding: 7px 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+}
+.hero-tag {
+  background: var(--green);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: #fff;
+}
+.hero-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow::before {
+  content: ''; width: 18px; height: 1px;
+  background: var(--green); display: inline-block;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px; font-weight: 600;
+  line-height: 0.95; letter-spacing: -0.01em;
+  color: #fff; margin-bottom: 12px;
+}
+.hero-title em { font-style: italic; color: var(--green); }
+.hero-sub {
+  font-size: 10px; color: rgba(255,255,255,0.5);
+  letter-spacing: 0.08em;
+  font-family: 'Inter', sans-serif; font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* ── STATS ── */
+.stats-row {
+  display: flex; gap: 1px;
+  margin: 0 22px;
+  border-radius: 20px; overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--border);
+}
+.stat-cell {
+  flex: 1; padding: 16px 8px;
+  text-align: center; background: var(--dim);
+}
+.stat-cell + .stat-cell { border-left: 1px solid var(--border); }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; color: #fff; line-height: 1; margin-bottom: 6px;
+}
+.stat-num small { font-size: 16px; font-family: 'Inter', sans-serif; font-weight: 400;}
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 8px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── SECTION ── */
+.section { padding: 30px 22px 0; }
+.sec-label {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.sec-label span {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--green); white-space: nowrap;
+}
+.sec-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba(0,112,74,0.3), transparent);
+}
+
+/* ── ABOUT ── */
+.pullquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 16px; line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+  padding-left: 16px;
+  border-left: 2px solid var(--green);
+  margin-bottom: 18px;
+}
+.body-text {
+  font-size: 12px; line-height: 1.7;
+  color: rgba(255,255,255,0.6); margin-bottom: 12px;
+  font-weight: 300;
+}
+.body-text strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid rgba(0,112,74,0.3);
+  background: rgba(0,112,74,0.1);
+  border-radius: 999px; padding: 6px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 500;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 30px 22px 0; }
+
+/* ── BENTO GRID STYLE (COURSE CONTENT) ── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.bento-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.bento-card.full {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+.bento-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--green);
+  margin-bottom: 8px;
+  line-height: 1;
+}
+.bento-card.full .bento-num {
+  margin-bottom: 0;
+  font-size: 32px;
+}
+.bento-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.bento-desc {
+  font-size: 9.5px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* ── PRICE BLOCK ── */
+.price-block {
+  background: linear-gradient(135deg, rgba(0,112,74,0.12) 0%, rgba(0,112,74,0.03) 100%);
+  border: 1px solid rgba(0,112,74,0.2);
+  border-radius: 26px; padding: 26px 22px;
+  margin: 30px 22px 30px;
+  position: relative; overflow: hidden;
+}
+.price-block::after {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 130px; height: 130px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,112,74,0.15), transparent 70%);
+  pointer-events: none;
+}
+.price-row {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 20px;
+}
+.p-normal-label {
+  font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted);
+}
+.p-normal-num {
+  font-size: 13px; color: rgba(255,255,255,0.3);
+  text-decoration: line-through; margin-top: 4px; font-weight: 300;
+}
+.p-now-label {
+  font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); text-align: right;
+}
+.p-now-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px; line-height: 1;
+  color: #F0C040;
+  text-align: right; margin-top: 4px;
+}
+.p-now-num small { font-size: 20px; opacity: 0.8; }
+.btn-buy {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; background: var(--green); color: #fff;
+  font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 16px 20px; border-radius: 999px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-buy:hover { background: var(--green2); transform: translateY(-1px); }
+
+/* ── FOOTER ── */
+.footer {
+  padding: 10px 22px 50px; text-align: center;
+}
+.footer-brand {
+  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-bottom: 8px;
+}
+.footer-copy { font-size: 10px; color: rgba(255,255,255,0.2); line-height: 1.6; font-weight: 300; }
+
+/* ── ANIMATE IN ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fu { animation: fadeUp 0.55s cubic-bezier(.22,1,.36,1) both; }
+.d1 { animation-delay: 0.05s; }
+.d2 { animation-delay: 0.13s; }
+.d3 { animation-delay: 0.22s; }
+.d4 { animation-delay: 0.32s; }
+.d5 { animation-delay: 0.44s; }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="hero-wrap-split fu">
+    <img class="hero-img-col"
+      src="https://www.image2url.com/r2/default/images/1776920598087-cc7cb7eb-efb2-44b3-8de4-371efa4daad1.png"
+      alt="Hero Advanced Workshop">
+    
+    <div class="hero-topbar">
+      <a href="index.html" target="_blank" class="back-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
+        Back
+      </a>
+      <span class="hero-tag">Digital Download</span>
+    </div>
+
+    <div class="hero-text-col">
+      <p class="hero-eyebrow">Workshop Recording</p>
+      <h1 class="hero-title">ADVANCED<br><em>LIGHTING</em></h1>
+      <p class="hero-sub">9 Juni 2024 di DOSS</p>
+    </div>
+  </div>
+
+  <div class="stats-row fu d1">
+    <div class="stat-cell">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Materi<br>Utama</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">HD</div>
+      <div class="stat-label">Kualitas<br>Video</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">PRO</div>
+      <div class="stat-label">Level<br>Fotografi</div>
+    </div>
+  </div>
+
+  <div class="section fu d2">
+    <div class="sec-label"><span>Tentang Kelas Ini</span></div>
+    <div class="pullquote">Ini adalah rekaman workshop advanced lighting tanggal 9 Juni 2024 yang diadakan langsung di DOSS.</div>
+    <p class="body-text"><strong>What you need:</strong> Diharapkan lo udah menguasai <em>basic photography</em> dan <em>basic studio lighting</em> sebelum mengambil materi ini.</p>
+    <p class="body-text"><strong>Who is it for:</strong> Kelas ini didesain khusus untuk kalian para photographer yang ingin mendobrak batasan dan mau upgrade skill studio lighting ke level yang lebih <em>advanced</em>.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section fu d3">
+    <div class="sec-label"><span>Yang Bakal Lo Pelajari</span></div>
+    
+    <div class="bento-grid">
+      <div class="bento-card full">
+        <div class="bento-num">01</div>
+        <div>
+          <h3 class="bento-title">Slow Shutter Technique</h3>
+          <p class="bento-desc">Pembahasan mendetail mengenai penggunaan Rear Sync &amp; Slow Sync.</p>
+        </div>
+      </div>
+      
+      <div class="bento-card">
+        <div class="bento-num">02</div>
+        <h3 class="bento-title">Light Painting</h3>
+        <p class="bento-desc">Teknik Light Painting di studio dengan 5 seconds shutter speed.</p>
+      </div>
+
+      <div class="bento-card">
+        <div class="bento-num">03</div>
+        <h3 class="bento-title">Cinematic Lighting</h3>
+        <p class="bento-desc">What you need to create cinematic look yang super dramatis.</p>
+      </div>
+
+      <div class="bento-card">
+        <div class="bento-num">04</div>
+        <h3 class="bento-title">Creative Mylar</h3>
+        <p class="bento-desc">Membuat efek pantulan kreatif menggunakan material Mylar sheets.</p>
+      </div>
+
+      <div class="bento-card">
+        <div class="bento-num">05</div>
+        <h3 class="bento-title">Using Gel</h3>
+        <p class="bento-desc">Mengkombinasikan warna gel lighting untuk dimensi yang lebih artistik.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="price-block fu d4">
+    <div class="price-row">
+      <div>
+        <div class="p-normal-label">Harga Normal</div>
+        <div class="p-normal-num">Rp 350.000</div>
+      </div>
+      <div>
+        <div class="p-now-label">Harga Rekaman</div>
+        <div class="p-now-num">Rp 249<small>.000</small></div>
+      </div>
+    </div>
+    <a href="https://lynk.id/bejanawaktu/BbzJNqe/checkout?token=cGFyYW1zPSU1QiU1RCZiaWRfcHJpY2U9MCZxdHlfcHJvZD0xJnNlc3NpZD0mdG90YWxfcHJpY2U9JnRvdGFsX3VuaXQ9" target="_blank" class="btn-buy">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+      Beli Rekaman Ini
+    </a>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">Photoacademy.id</div>
+    <p class="footer-copy">© 2026 Anest Photography · photoacademy.id<br>All Rights Reserved.</p>
+  </div>
+
+</main>
+</body>
+</html>

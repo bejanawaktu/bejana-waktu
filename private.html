@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Lighting Session — Bejana Waktu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #0a1e16;
+  --bg2:    #0f2720;
+  --green:  #00704a;
+  --green2: #1e3f33;
+  --cream:  #d9cdb8;
+  --gold:   #b8975a;
+  --muted:  #5a7a6a;
+  --white:  #f5f2ed;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  max-width: 375px;
+  margin: 0 auto;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* grain */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 998; pointer-events: none;
+  opacity: .45;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='.05'/%3E%3C/svg%3E");
+}
+
+.cor { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+/* ── BACK ── */
+.back {
+  display: flex; align-items: center; gap: 8px;
+  padding: 28px 24px 0;
+  text-decoration: none; color: var(--muted);
+  font-size: 9px; letter-spacing: .18em; text-transform: uppercase; font-weight: 500;
+  transition: color .25s;
+}
+.back:hover { color: var(--cream); }
+.back svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+/* ── GOLD TOP LINE ── */
+.gold-rule {
+  margin: 20px 24px 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: .6;
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  padding: 24px 24px 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.masthead-eyebrow {
+  font-size: 8px; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500;
+}
+.masthead-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 50px; font-weight: 300; line-height: .95;
+  letter-spacing: -.02em; color: var(--white);
+}
+.masthead-title em {
+  font-style: italic; color: var(--cream); font-weight: 300;
+}
+.masthead-date {
+  font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); margin-top: 4px;
+}
+
+/* ── HERO IMAGE ── */
+.hero {
+  position: relative; margin: 22px 0 0;
+  height: 280px; overflow: hidden;
+}
+.hero img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  filter: saturate(.7) brightness(.85);
+  display: block;
+}
+.hero-scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(10,30,22,.3) 0%,
+    rgba(10,30,22,0) 40%,
+    rgba(10,30,22,.85) 100%);
+}
+/* exclusive stamp */
+.stamp {
+  position: absolute; top: 18px; right: 18px;
+  width: 62px; height: 62px;
+  border: 1px solid rgba(184,151,90,.5);
+  border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 1px;
+  background: rgba(10,30,22,.6);
+  backdrop-filter: blur(6px);
+}
+.stamp-top {
+  font-size: 6px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500; text-align: center;
+}
+.stamp-mid {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px; color: var(--cream); letter-spacing: .1em;
+  font-style: italic; text-align: center; line-height: 1.2;
+}
+/* price overlay at bottom of hero */
+.hero-price {
+  position: absolute; bottom: 18px; left: 24px;
+}
+.hero-price-was {
+  font-size: 10px; color: var(--muted); text-decoration: line-through;
+  letter-spacing: .04em;
+}
+.hero-price-now {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px; font-weight: 300; line-height: 1;
+  color: var(--white); letter-spacing: -.02em;
+}
+.hero-price-now sup {
+  font-size: 16px; font-family: 'DM Sans', sans-serif;
+  font-weight: 300; vertical-align: super; margin-right: 2px;
+}
+.hero-price-save {
+  display: inline-block; margin-top: 4px;
+  font-size: 7.5px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--bg); background: var(--gold);
+  padding: 2px 8px; font-weight: 500;
+}
+
+/* ── DIVIDER ── */
+.div-gold {
+  height: 1px; margin: 28px 24px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: .35;
+}
+.div-subtle {
+  height: 1px; margin: 28px 24px;
+  background: rgba(255,255,255,.06);
+}
+
+/* ── LEAD COPY ── */
+.lead { padding: 0 24px; }
+.lead-intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 300; font-style: italic;
+  line-height: 1.45; color: var(--cream);
+  margin-bottom: 16px;
+}
+.lead-body {
+  font-size: 12px; line-height: 1.9; color: #8faa9a; font-weight: 300;
+}
+.lead-body strong { color: var(--white); font-weight: 500; }
+
+/* ── COMPARISON ── */
+.comparison { padding: 0 24px; }
+.comp-label {
+  font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px;
+}
+.comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.comp-card {
+  padding: 16px 14px;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,.06);
+}
+.comp-card.regular {
+  background: rgba(30,63,51,.15);
+}
+.comp-card.private {
+  background: rgba(184,151,90,.08);
+  border-color: rgba(184,151,90,.25);
+}
+.comp-card-label {
+  font-size: 7.5px; letter-spacing: .16em; text-transform: uppercase;
+  margin-bottom: 12px; font-weight: 500;
+}
+.comp-card.regular .comp-card-label { color: var(--muted); }
+.comp-card.private .comp-card-label { color: var(--gold); }
+.comp-row {
+  font-size: 9px; color: #8faa9a; line-height: 1.5;
+  padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.04);
+  display: flex; align-items: flex-start; gap: 6px;
+}
+.comp-row:last-child { border-bottom: none; }
+.comp-row.highlight { color: var(--cream); font-weight: 500; }
+.comp-icon { flex-shrink: 0; font-size: 9px; margin-top: 1px; }
+
+/* ── FORMAT SECTION ── */
+.format-wrap { padding: 0 24px; }
+.sec-label {
+  font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 18px;
+}
+.format-card {
+  padding: 20px;
+  border: 1px solid rgba(184,151,90,.2);
+  background: rgba(184,151,90,.04);
+  border-radius: 2px; margin-bottom: 10px;
+  position: relative; overflow: hidden;
+}
+.format-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  opacity: .5;
+}
+.format-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 300; line-height: 1;
+  color: rgba(184,151,90,.15); position: absolute;
+  right: 14px; bottom: 8px; letter-spacing: -.04em;
+  user-select: none;
+}
+.format-tag {
+  font-size: 7.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500; margin-bottom: 8px;
+}
+.format-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 300; color: var(--white);
+  line-height: 1.2; margin-bottom: 8px;
+}
+.format-desc {
+  font-size: 10px; color: #8faa9a; line-height: 1.7; font-weight: 300;
+}
+
+/* ── DISCLAIMER ── */
+.disclaimer {
+  margin: 0 24px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,.06);
+  background: rgba(255,255,255,.02);
+  border-radius: 2px;
+}
+.disclaimer-text {
+  font-size: 9px; color: var(--muted); line-height: 1.7;
+}
+.disclaimer-text strong { color: #8faa9a; font-weight: 500; }
+
+/* ── SCHEDULE NOTE ── */
+.schedule-note { padding: 0 24px; }
+.schedule-body {
+  font-size: 11px; line-height: 1.8; color: #8faa9a;
+}
+.schedule-body strong { color: var(--white); font-weight: 500; }
+
+/* ── CTA ── */
+.cta-wrap { padding: 36px 24px 110px; }
+.cta-price-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 6px;
+}
+.cta-price-label { font-size: 8.5px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+.cta-price-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; color: var(--white);
+}
+.cta-price-val s { font-size: 12px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 300; margin-right: 6px; }
+.cta-note-top {
+  font-size: 8.5px; color: var(--muted); margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.btn {
+  display: block; width: 100%;
+  padding: 17px;
+  background: var(--gold);
+  color: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9.5px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase;
+  text-align: center; text-decoration: none;
+  border: none; cursor: pointer;
+  transition: opacity .2s, transform .15s;
+}
+.btn:hover { opacity: .88; transform: translateY(-1px); }
+.btn:active { transform: none; }
+
+.btn-secondary {
+  display: block; width: 100%;
+  padding: 15px;
+  background: transparent;
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9.5px; font-weight: 400; letter-spacing: .18em; text-transform: uppercase;
+  text-align: center; text-decoration: none;
+  border: 1px solid rgba(255,255,255,.15);
+  cursor: pointer; margin-top: 10px;
+  transition: border-color .2s, color .2s;
+}
+.btn-secondary:hover { border-color: var(--cream); }
+
+.cta-bottom-note {
+  text-align: center; margin-top: 14px;
+  font-size: 8px; color: var(--muted); line-height: 1.7;
+}
+
+/* ── STICKY ── */
+.sticky {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 375px;
+  padding: 14px 24px 28px;
+  background: linear-gradient(to top, var(--bg) 55%, transparent);
+  z-index: 100;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade { opacity: 0; animation: up .65s ease forwards; }
+.d1{animation-delay:.04s} .d2{animation-delay:.1s}  .d3{animation-delay:.17s}
+.d4{animation-delay:.24s} .d5{animation-delay:.31s} .d6{animation-delay:.38s}
+.d7{animation-delay:.45s} .d8{animation-delay:.52s}
+</style>
+</head>
+<body>
+
+<!-- back -->
+<a href="index.html" class="back fade d1">
+  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+  </svg>
+  Kembali
+</a>
+
+<!-- gold line -->
+<div class="gold-rule fade d1"></div>
+
+<!-- masthead -->
+<div class="masthead fade d2">
+  <span class="masthead-eyebrow">Photo Academy · Sesi Eksklusif</span>
+  <h1 class="masthead-title cor">Private<br><em>Lighting</em><br>Session</h1>
+  <span class="masthead-date">Mei 2026 &nbsp;·&nbsp; Jakarta</span>
+</div>
+
+<!-- hero -->
+<div class="hero fade d3">
+  <!-- ganti src ke foto produk kamu -->
+  <img src="https://www.image2url.com/r2/default/images/1777086618725-990a8154-fe1e-4fc1-8df4-ec53f622842a.png" alt="Private Lighting Session">
+  <div class="hero-scrim"></div>
+
+  <div class="stamp">
+    <span class="stamp-top">Only</span>
+    <span class="stamp-mid">1 on 1<br>Session</span>
+    <span class="stamp-top">Slots</span>
+  </div>
+
+  <div class="hero-price">
+    <div class="hero-price-was">IDR 7.500.000</div>
+    <div class="hero-price-now"><sup>IDR</sup>6.000.000</div>
+    <span class="hero-price-save">Hemat 1.5 Juta</span>
+  </div>
+</div>
+
+<!-- gold divider -->
+<div class="div-gold fade d3"></div>
+
+<!-- lead copy -->
+<div class="lead fade d4">
+  <p class="lead-intro">Sesi ini lebih customize&#8209;able.<br>Lebih fleksibel. Sepenuhnya milik kamu.</p>
+  <p class="lead-body">
+    Workshop reguler diikuti <strong>6–10 peserta</strong> dalam 6 jam — terkadang beberapa orang ingin lebih. Ingin lebih bebas bertanya, berkonsultasi, dan waktu praktek yang benar-benar sesuai kebutuhan.<br><br>
+    Untuk itu gue sediain sesi ini — <strong>khusus 1 on 1 bersama Anest</strong>, menyesuaikan jadwal kamu dan jadwal gue sebagai mentor.
+  </p>
+</div>
+
+<div class="div-subtle fade d4"></div>
+
+<!-- comparison -->
+<div class="comparison fade d5">
+  <p class="comp-label">Regular vs Private</p>
+  <div class="comp-grid">
+
+    <div class="comp-card regular">
+      <div class="comp-card-label">Workshop Reguler</div>
+      <div class="comp-row"><span class="comp-icon">—</span> 6–10 peserta</div>
+      <div class="comp-row"><span class="comp-icon">—</span> Durasi 6 jam</div>
+      <div class="comp-row"><span class="comp-icon">—</span> Jadwal tetap</div>
+      <div class="comp-row"><span class="comp-icon">—</span> Waktu tanya terbatas</div>
+      <div class="comp-row"><span class="comp-icon">—</span> Materi standar</div>
+    </div>
+
+    <div class="comp-card private">
+      <div class="comp-card-label">Private Session</div>
+      <div class="comp-row highlight"><span class="comp-icon">✦</span> Hanya kamu</div>
+      <div class="comp-row highlight"><span class="comp-icon">✦</span> 8 jam / 2×4 jam</div>
+      <div class="comp-row highlight"><span class="comp-icon">✦</span> Jadwal fleksibel</div>
+      <div class="comp-row highlight"><span class="comp-icon">✦</span> Bebas konsultasi</div>
+      <div class="comp-row highlight"><span class="comp-icon">✦</span> Materi custom</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="div-subtle fade d5"></div>
+
+<!-- format pilihan -->
+<div class="format-wrap fade d6">
+  <p class="sec-label">Pilihan Format Sesi</p>
+
+  <div class="format-card">
+    <div class="format-num">A</div>
+    <div class="format-tag">Opsi 1</div>
+    <div class="format-title cor">Full Day<br>Session</div>
+    <div class="format-desc">1 hari penuh, <strong style="color:var(--cream)">8 jam</strong> teori dan praktek tanpa putus. Intensif, fokus, dan tuntas dalam satu pertemuan.</div>
+  </div>
+
+  <div class="format-card">
+    <div class="format-num">B</div>
+    <div class="format-tag">Opsi 2</div>
+    <div class="format-title cor">Split<br>Session</div>
+    <div class="format-desc">Dua kali pertemuan masing-masing <strong style="color:var(--cream)">4 jam</strong>. Pilih salah satu tanggal — jadwal sesi kedua kita diskusikan via WhatsApp.</div>
+  </div>
+</div>
+
+<div class="div-subtle fade d6"></div>
+
+<!-- disclaimer -->
+<div class="disclaimer fade d7">
+  <p class="disclaimer-text">
+    <strong>Catatan penting:</strong> Harga di atas belum termasuk <strong>fee model</strong> dan <strong>biaya sewa studio</strong>. Detail biaya tambahan akan didiskusikan saat konfirmasi booking.
+  </p>
+</div>
+
+<!-- schedule note -->
+<div class="div-subtle fade d7"></div>
+<div class="schedule-note fade d7">
+  <p class="sec-label">Cara Booking</p>
+  <p class="schedule-body">
+    Pilih tanggal yang tersedia, lalu kita atur jadwal lengkapnya <strong>via WhatsApp</strong>. Slot terbatas — sesi private hanya dibuka untuk beberapa peserta per bulan.
+  </p>
+</div>
+
+<!-- CTA -->
+<div class="cta-wrap fade d8">
+  <div class="cta-price-row">
+    <span class="cta-price-label">Investment kamu</span>
+    <span class="cta-price-val cor"><s>7.500.000</s> IDR 6.000.000</span>
+  </div>
+  <p class="cta-note-top">Belum termasuk fee model & studio rent.</p>
+
+  <a href="index.html" class="btn-secondary">Lihat Produk Lainnya</a>
+
+  <p class="cta-bottom-note">
+    Slot sangat terbatas · Konfirmasi via WhatsApp<br>
+    DM juga bisa di <strong style="color:#5a7a6a">@photoacademy.id</strong>
+  </p>
+</div>
+
+<!-- sticky -->
+<div class="sticky">
+  <a href="http://lynk.id/bejanawaktu/0prn4n78e56v" target="_blank" class="btn">Book Sekarang — IDR 6.000.000</a>
+</div>
+
+</body>
+</html>

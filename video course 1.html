@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basic Portrait Retouching — Bejana Waktu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #0d241c;
+  --bg2:   #0f2720;
+  --green: #00704a;
+  --green2:#1e3f33;
+  --cream: #e8dfc8;
+  --muted: #6b8c7a;
+  --white: #ffffff;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  max-width: 375px;
+  margin: 0 auto;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 999; opacity: .5;
+}
+.serif { font-family: 'Playfair Display', Georgia, serif; }
+
+/* BACK */
+.back {
+  display: flex; align-items: center; gap: 8px;
+  padding: 28px 24px 0;
+  text-decoration: none; color: var(--muted);
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500;
+  transition: color .2s;
+}
+.back:hover { color: var(--cream); }
+.back svg { width: 14px; height: 14px; }
+
+/* ISSUE LINE */
+.issue-line {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 24px 0;
+  font-size: 8.5px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted); font-weight: 500;
+}
+.dot { display:inline-block;width:4px;height:4px;background:var(--green);border-radius:50%;margin:0 6px;vertical-align:middle; }
+
+/* COVER */
+.cover {
+  position: relative; margin: 20px 24px 0;
+  border-radius: 3px; overflow: hidden; aspect-ratio: 4/3;
+}
+.cover img { width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.8); }
+.cover-scrim {
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(13,36,28,0) 30%,rgba(13,36,28,.8) 100%);
+}
+.cover-num {
+  position:absolute;bottom:-8px;left:-4px;
+  font-family:'Playfair Display',serif;
+  font-size:100px;font-weight:900;line-height:1;
+  color:var(--bg);opacity:.95;letter-spacing:-.04em;
+  user-select:none;-webkit-text-stroke:1px rgba(232,223,200,.07);
+}
+
+/* HEADLINE */
+.headline { padding: 26px 24px 0; }
+.kicker { font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:500;margin-bottom:10px; }
+.title {
+  font-family:'Playfair Display',serif;
+  font-size:36px;font-weight:900;line-height:1.0;
+  letter-spacing:-.02em;color:var(--white);
+}
+.title em { font-style:italic;color:var(--cream); }
+.subtitle { font-size:11px;color:var(--muted);font-weight:400;line-height:1.6;margin-top:12px; }
+
+/* RULE */
+.rule { height:1px;margin:24px 24px;background:linear-gradient(90deg,var(--green) 0%,rgba(0,112,74,.1) 100%); }
+
+/* PRICE */
+.price-block { padding:0 24px;display:flex;align-items:baseline;gap:14px; }
+.price-was { font-size:11px;color:var(--muted);text-decoration:line-through; }
+.price-now {
+  font-family:'Playfair Display',serif;
+  font-size:40px;font-weight:700;line-height:1;color:var(--white);
+}
+.price-now span { font-size:14px;font-family:'DM Sans',sans-serif;font-weight:400; }
+.price-save {
+  font-size:8px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--bg);background:var(--cream);font-weight:500;
+  padding:3px 8px;border-radius:2px;align-self:center;
+}
+
+/* INTRO */
+.intro { padding:20px 24px 0;font-size:12px;line-height:1.85;color:#b0c4ba;font-weight:300; }
+.intro strong { color:var(--white);font-weight:500; }
+
+/* INCLUDES */
+.includes { margin:28px 24px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+.inc-item {
+  padding:14px 12px;border:1px solid rgba(255,255,255,.07);
+  border-radius:3px;background:rgba(30,63,51,.25);
+}
+.inc-icon { width:20px;height:20px;margin-bottom:8px;color:var(--green); }
+.inc-label { font-size:9px;font-weight:500;color:var(--white);line-height:1.4; }
+.inc-sub { font-size:7.5px;color:var(--muted);margin-top:2px;line-height:1.3; }
+
+/* SECTION HEADER */
+.sec-header { padding:36px 24px 0;display:flex;align-items:baseline;gap:12px; }
+.sec-num { font-family:'Playfair Display',serif;font-size:12px;color:var(--green);font-style:italic; }
+.sec-title { font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500; }
+
+/* CURRICULUM */
+.curriculum { padding:16px 24px 0; }
+.mod { display:flex;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05);gap:16px; }
+.mod:last-child { border-bottom:none; }
+.mod-n { font-family:'Playfair Display',serif;font-size:11px;color:var(--green);opacity:.7;font-style:italic;flex-shrink:0;width:16px;margin-top:1px; }
+.mod-name { font-size:11px;font-weight:500;color:var(--white);line-height:1.3;margin-bottom:3px; }
+.mod-detail { font-size:9px;color:var(--muted);line-height:1.5; }
+.coming-header { display:flex;align-items:center;gap:10px;margin:20px 0 12px; }
+.coming-label { font-size:7.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap; }
+.coming-line { flex:1;height:1px;background:rgba(255,255,255,.07); }
+.mod.dim .mod-name { color:var(--muted);font-weight:300; }
+.mod.dim .mod-n { opacity:.3; }
+
+/* TELEGRAM */
+.tg-block {
+  margin:36px 24px 0;padding:20px;
+  border:1px solid rgba(0,112,74,.3);border-radius:3px;
+  display:flex;gap:14px;align-items:flex-start;
+  background:rgba(0,112,74,.07);
+}
+.tg-icon { flex-shrink:0;width:36px;height:36px;border-radius:8px;background:#229ED9;display:flex;align-items:center;justify-content:center; }
+.tg-icon svg { width:18px;height:18px; }
+.tg-title { font-size:10px;font-weight:500;color:var(--white);margin-bottom:4px; }
+.tg-desc { font-size:8.5px;color:var(--muted);line-height:1.6; }
+
+/* CTA */
+.cta-wrap { padding:36px 24px 110px; }
+.cta-context { display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px; }
+.cta-price-label { font-size:8.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase; }
+.cta-price-val { font-family:'Playfair Display',serif;font-size:22px;color:var(--white); }
+.cta-price-val s { font-size:12px;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:300;margin-right:6px; }
+.btn {
+  display:block;width:100%;padding:16px;
+  background:var(--green);color:var(--white);
+  font-family:'DM Sans',sans-serif;
+  font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  text-align:center;text-decoration:none;border-radius:2px;
+  border:none;cursor:pointer;transition:background .2s,transform .15s;
+}
+.btn:hover { background:#005a3c;transform:translateY(-1px); }
+.btn:active { transform:none; }
+.cta-note { text-align:center;margin-top:12px;font-size:8px;color:var(--muted);letter-spacing:.06em; }
+
+/* STICKY */
+.sticky {
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:375px;
+  padding:16px 24px 28px;
+  background:linear-gradient(to top,var(--bg) 60%,transparent);
+  z-index:100;
+}
+
+/* ANIMATIONS */
+@keyframes up { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+.fade { opacity:0;animation:up .6s ease forwards; }
+.d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.19s}
+.d4{animation-delay:.26s}.d5{animation-delay:.33s}.d6{animation-delay:.4s}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back fade d1">
+  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+  </svg>
+  Kembali
+</a>
+
+<div class="issue-line fade d1">
+  <span>Photo Academy</span>
+  <span>Video Course<span class="dot"></span>2025</span>
+</div>
+
+<div class="cover fade d2">
+  <img src="https://www.image2url.com/r2/default/images/1777085451507-cc0a7ff5-8927-4a11-b26e-a19c0af5216d.png" alt="Basic Portrait Retouching">
+  <div class="cover-scrim"></div>
+</div>
+
+<div class="headline fade d3">
+  <p class="kicker">Video Course · Retouching</p>
+  <h1 class="title serif">Basic <em>Portrait</em><br>Retouching<br>Guideline</h1>
+  <p class="subtitle">Semua yang lo butuh untuk mulai retouch portrait secara profesional — dari tools dasar sampai teknik yang dipakai di industri.</p>
+</div>
+
+<div class="rule fade d3"></div>
+
+<div class="price-block fade d4">
+  <div>
+    <div class="price-was">IDR 500.000</div>
+    <div class="price-now"><span>IDR</span> 349.000</div>
+  </div>
+  <span class="price-save">Hemat 30%</span>
+</div>
+
+<p class="intro fade d4">
+  Di course ini gue share <strong>basic retouching skill</strong> yang langsung bisa lo pakai untuk project portrait. Materi direkam dari webinar 2 jam + sesi workshop offline, lengkap sama video tutorial step-by-step dan <strong>file RAW</strong> buat latihan.
+</p>
+
+<div class="includes fade d4">
+  <div class="inc-item">
+    <svg class="inc-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+    </svg>
+    <div class="inc-label">Rekaman Webinar</div>
+    <div class="inc-sub">2 jam full recording</div>
+  </div>
+  <div class="inc-item">
+    <svg class="inc-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>
+    </svg>
+    <div class="inc-label">Workshop Offline</div>
+    <div class="inc-sub">Full recording sesi offline</div>
+  </div>
+  <div class="inc-item">
+    <svg class="inc-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+    </svg>
+    <div class="inc-label">File RAW</div>
+    <div class="inc-sub">Langsung bisa dipraktekin</div>
+  </div>
+  <div class="inc-item">
+    <svg class="inc-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+    </svg>
+    <div class="inc-label">Private Telegram</div>
+    <div class="inc-sub">Update materi + komunitas</div>
+  </div>
+</div>
+
+<div class="sec-header fade d5">
+  <span class="sec-num">§</span>
+  <span class="sec-title">Materi yang lo pelajari</span>
+</div>
+
+<div class="curriculum fade d5">
+  <div class="mod">
+    <span class="mod-n">1</span>
+    <div><div class="mod-name">Retouching Preparation</div><div class="mod-detail">Setup workflow & mindset sebelum mulai retouch beneran.</div></div>
+  </div>
+  <div class="mod">
+    <span class="mod-n">2</span>
+    <div><div class="mod-name">Basic Retouching Tools</div><div class="mod-detail">Remove Tool · Spot Healing · Healing Brush · Patch Tool · Clone Stamp</div></div>
+  </div>
+  <div class="mod">
+    <span class="mod-n">3</span>
+    <div><div class="mod-name">Frequency Separation</div><div class="mod-detail">Intro ke FS + cara pakai Mixer Brush untuk skin yang natural.</div></div>
+  </div>
+  <div class="mod">
+    <span class="mod-n">4</span>
+    <div><div class="mod-name">Dodge &amp; Burn</div><div class="mod-detail">Tiga cara berbeda untuk sculpting cahaya dan bayangan di wajah.</div></div>
+  </div>
+  <div class="mod">
+    <span class="mod-n">5</span>
+    <div><div class="mod-name">Hair · Eyes · Teeth</div><div class="mod-detail">Flyaway hairs, enhance eyes, whiten teeth — detail yang sering diabaikan.</div></div>
+  </div>
+  <div class="mod">
+    <span class="mod-n">6</span>
+    <div><div class="mod-name">Lightroom AI Retouching</div><div class="mod-detail">Manfaatin fitur AI Lightroom untuk proses yang lebih cepat.</div></div>
+  </div>
+  <div class="mod">
+    <span class="mod-n">7</span>
+    <div><div class="mod-name">AI Plugins &amp; Software</div><div class="mod-detail">Tools AI terbaik untuk mempercepat dan elevate hasil retouch.</div></div>
+  </div>
+
+  <div class="coming-header">
+    <div class="coming-line"></div>
+    <span class="coming-label">Advanced — coming soon</span>
+    <div class="coming-line"></div>
+  </div>
+
+  <div class="mod dim"><span class="mod-n">+</span><div><div class="mod-name">Working with Channels</div></div></div>
+  <div class="mod dim"><span class="mod-n">+</span><div><div class="mod-name">Luminosity Mask &amp; Blend If</div></div></div>
+  <div class="mod dim"><span class="mod-n">+</span><div><div class="mod-name">Gradient Map &amp; Color Harmony</div></div></div>
+  <div class="mod dim"><span class="mod-n">+</span><div><div class="mod-name">Micro &amp; Macro Dodge &amp; Burn</div></div></div>
+  <div class="mod dim"><span class="mod-n">+</span><div><div class="mod-name">Color Range Feature</div></div></div>
+</div>
+
+<div class="tg-block fade d5">
+  <div class="tg-icon">
+    <svg viewBox="0 0 24 24" fill="white">
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+    </svg>
+  </div>
+  <div>
+    <div class="tg-title">Private Telegram Group</div>
+    <div class="tg-desc">Join group eksklusif buat update materi video terbaru dan share hasil latihan bareng komunitas.</div>
+  </div>
+</div>
+
+<div class="cta-wrap fade d6">
+  <div class="cta-context">
+    <span class="cta-price-label">Total yang lo bayar</span>
+    <span class="cta-price-val serif"><s>500.000</s> IDR 349.000</span>
+  </div>
+  <a href="http://lynk.id/bejanawaktu/Q5lx72W/checkout" class="btn" target="_blank">Beli Sekarang</a>
+  <p class="cta-note">Bayar sekali · Akses selamanya · Update gratis<br>DM <strong style="color:var(--muted)">@photoacademy.id</strong> untuk pertanyaan</p>
+</div>
+
+<div class="sticky">
+  <a href="http://lynk.id/bejanawaktu/Q5lx72W/checkout" class="btn" target="_blank">Beli Sekarang — IDR 349.000</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Lighting Beginner's Guide Vol 1.5 — Anest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #0b1712;
+  --bg2:    #0f1e17;
+  --green:  #00704a;
+  --green2: #005a3c;
+  --dim:    rgba(255,255,255,0.05);
+  --border: rgba(255,255,255,0.08);
+  --text:   rgba(255,255,255,0.88);
+  --muted:  rgba(255,255,255,0.38);
+  --faint:  rgba(255,255,255,0.10);
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── HERO ── */
+.hero-wrap {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.hero-blur {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 160px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 55%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 55%);
+  pointer-events: none;
+}
+.hero-fade {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 300px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(11,23,18,0.45) 30%,
+    rgba(11,23,18,0.88) 65%,
+    #0b1712 100%
+  );
+  pointer-events: none;
+}
+.hero-topbar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 52px 20px 0;
+  z-index: 10;
+}
+.back-pill {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(0,0,0,0.38);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 999px;
+  padding: 7px 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+}
+.hero-tag {
+  background: var(--green);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: #fff;
+}
+.hero-textblock {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 22px 30px;
+  z-index: 10;
+}
+.hero-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow::before {
+  content: ''; width: 18px; height: 1px;
+  background: var(--green); display: inline-block;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 600;
+  line-height: 0.95; letter-spacing: -0.01em;
+  color: #fff; margin-bottom: 12px;
+}
+.hero-title em { font-style: italic; color: var(--green); }
+.hero-sub {
+  font-size: 10px; color: rgba(255,255,255,0.5);
+  letter-spacing: 0.08em;
+  font-family: 'Inter', sans-serif; font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* ── STATS ── */
+.stats-row {
+  display: flex; gap: 1px;
+  margin: 20px 22px 0;
+  border-radius: 20px; overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--border);
+}
+.stat-cell {
+  flex: 1; padding: 16px 8px;
+  text-align: center; background: var(--dim);
+}
+.stat-cell + .stat-cell { border-left: 1px solid var(--border); }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; color: #fff; line-height: 1; margin-bottom: 6px;
+}
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 8px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── SECTION ── */
+.section { padding: 30px 22px 0; }
+.sec-label {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.sec-label span {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--green); white-space: nowrap;
+}
+.sec-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba(0,112,74,0.3), transparent);
+}
+
+/* ── ABOUT ── */
+.pullquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 15px; line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+  padding-left: 16px;
+  border-left: 2px solid var(--green);
+  margin-bottom: 18px;
+}
+.body-text {
+  font-size: 12px; line-height: 1.7;
+  color: rgba(255,255,255,0.6); margin-bottom: 12px;
+  font-weight: 300;
+}
+.body-text strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid rgba(0,112,74,0.3);
+  background: rgba(0,112,74,0.1);
+  border-radius: 999px; padding: 6px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 500;
+  color: rgba(255,255,255,0.7);
+}
+.tag svg { color: var(--green); }
+
+/* ── MIDDLE IMAGE FADE ── */
+.middle-img-wrap {
+  width: 100%;
+  margin: 30px 0 10px;
+}
+.middle-img {
+  width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+  display: block;
+  /* Efek nyatu atas dan bawah (fade transparansi) */
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 30px 22px 0; }
+
+/* ── TESTIMONIALS ── */
+.testi-outer { overflow: hidden; position: relative; }
+.testi-track {
+  display: flex; gap: 14px;
+  transition: transform 0.65s cubic-bezier(.77,0,.175,1);
+  align-items: center;
+  padding: 14px 4px 14px 22px;
+}
+.testi-card {
+  flex-shrink: 0; width: 272px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 24px; padding: 20px;
+  transition: transform 0.5s cubic-bezier(.34,1.56,.64,1), border-color 0.4s, box-shadow 0.4s;
+  cursor: pointer; will-change: transform;
+}
+.testi-card:nth-child(odd)  { transform: rotate(-1.5deg) translateY(3px); }
+.testi-card:nth-child(even) { transform: rotate(1.2deg) translateY(-3px); }
+.testi-card.active {
+  transform: rotate(0deg) translateY(0) !important;
+  border-color: rgba(0,112,74,0.3);
+}
+.testi-card.zoomed {
+  transform: rotate(0deg) translateY(0) scale(1.05) !important;
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  z-index: 5; position: relative;
+}
+.testi-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(0,112,74,0.15); border: 1px solid rgba(0,112,74,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+  color: var(--green); flex-shrink: 0;
+}
+.testi-name {
+  font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+  color: rgba(255,255,255,0.9);
+}
+.testi-role { font-size: 9px; color: var(--muted); margin-top: 2px; }
+.testi-quote {
+  font-size: 11px; line-height: 1.6;
+  color: rgba(255,255,255,0.6); font-style: italic; margin-top: 14px; font-weight: 300;
+}
+.testi-dots {
+  display: flex; justify-content: center; gap: 6px; padding: 6px 0 0;
+}
+.dot {
+  height: 6px; width: 6px; border-radius: 3px;
+  background: var(--faint); cursor: pointer;
+  transition: background 0.3s, transform 0.3s, width 0.3s;
+}
+.dot.active { background: var(--green); width: 20px; }
+.testi-hint {
+  text-align: center; font-size: 9px; color: rgba(255,255,255,0.2);
+  letter-spacing: 0.05em;
+  margin-top: 12px; font-family: 'Inter', sans-serif;
+}
+
+/* ── INCLUDES ── */
+.inc-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+}
+.inc-row:last-child { border-bottom: none; }
+.inc-icon {
+  width: 34px; height: 34px; border-radius: 12px;
+  background: rgba(0,112,74,0.1); border: 1px solid rgba(0,112,74,0.2);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.inc-icon svg { color: var(--green); }
+.inc-text { font-size: 11.5px; color: rgba(255,255,255,0.7); line-height: 1.5; font-weight: 300; }
+
+/* ── PRICE BLOCK ── */
+.price-block {
+  background: linear-gradient(135deg, rgba(0,112,74,0.12) 0%, rgba(0,112,74,0.03) 100%);
+  border: 1px solid rgba(0,112,74,0.2);
+  border-radius: 26px; padding: 26px 22px;
+  margin: 0 22px;
+  position: relative; overflow: hidden;
+}
+.price-block::after {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 130px; height: 130px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,112,74,0.15), transparent 70%);
+  pointer-events: none;
+}
+.price-row {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 20px;
+}
+.p-normal-label {
+  font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted);
+}
+.p-normal-num {
+  font-size: 13px; color: rgba(255,255,255,0.3);
+  text-decoration: line-through; margin-top: 4px; font-weight: 300;
+}
+.p-now-label {
+  font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); text-align: right;
+}
+.p-now-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px; line-height: 1;
+  color: #F0C040;
+  text-align: right; margin-top: 4px;
+}
+.p-now-num small { font-size: 20px; opacity: 0.8; }
+.btn-buy {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; background: var(--green); color: #fff;
+  font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 16px 20px; border-radius: 999px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-buy:hover { background: var(--green2); transform: translateY(-1px); }
+.buy-note {
+  text-align: center; font-size: 10px;
+  color: rgba(255,255,255,0.3); margin: 12px 22px 0; font-weight: 300;
+}
+
+/* ── FOOTER ── */
+.footer {
+  padding: 40px 22px 50px; text-align: center;
+}
+.footer-brand {
+  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-bottom: 8px;
+}
+.footer-copy { font-size: 10px; color: rgba(255,255,255,0.2); line-height: 1.6; font-weight: 300; }
+
+/* ── ANIMATE IN ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fu { animation: fadeUp 0.55s cubic-bezier(.22,1,.36,1) both; }
+.d1 { animation-delay: 0.05s; }
+.d2 { animation-delay: 0.13s; }
+.d3 { animation-delay: 0.22s; }
+.d4 { animation-delay: 0.32s; }
+.d5 { animation-delay: 0.44s; }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="hero-wrap fu">
+    <img class="hero-img"
+      src="https://www.image2url.com/r2/default/images/1777030667459-23438759-9743-4805-8762-c3a88f8e9842.png"
+      alt="Hero Photo">
+    <div class="hero-blur"></div>
+    <div class="hero-fade"></div>
+
+    <div class="hero-topbar">
+      <a href="index.html" target="_blank" class="back-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
+        Back
+      </a>
+      <span class="hero-tag">E-Book Starter</span>
+    </div>
+
+    <div class="hero-textblock">
+      <p class="hero-eyebrow">Beginner's Guide</p>
+      <h1 class="hero-title">STUDIO<br><em>LIGHTING</em><br>VOL 1.5</h1>
+      <p class="hero-sub">by Anest</p>
+    </div>
+  </div>
+
+  <div class="stats-row fu d1">
+    <div class="stat-cell">
+      <div class="stat-num">30+</div>
+      <div class="stat-label">Total<br>Halaman</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">101</div>
+      <div class="stat-label">Basic<br>Studio</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">Flash</div>
+      <div class="stat-label">Lighting<br>Setup</div>
+    </div>
+  </div>
+
+  <div class="section fu d2">
+    <div class="sec-label"><span>Tentang E-Book</span></div>
+    <div class="pullquote">Ini adalah panduan singkat berisi 30++ halaman untuk kalian yang ingin memulai foto dengan lighting di studio.</div>
+    <p class="body-text">Gue harap dengan ebook sederhana ini bisa jadi bekal untuk lo nyobain foto di studio dengan menggunakan <em>flash</em> tanpa ngerasa bingung harus mulai dari mana.</p>
+    <p class="body-text">Di sini gue bakal bahas tuntas mulai dari pengenalan alat-alat yang dibutuhin, apa fungsi dari masing-masing <em>modifier</em>, sampai gimana cara nentuin posisi lampu pertama lo. Semuanya dibikin simpel pakai bahasa yang gampang dimengerti, khusus buat lo yang mau <em>level up</em> skill tapi takut nyentuh tombol lampu.</p>
+    
+    <div class="tag-row">
+      <span class="tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Basic Lighting</span>
+      <span class="tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Studio Setup</span>
+      <span class="tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Flash Guide</span>
+    </div>
+  </div>
+
+  <div class="middle-img-wrap fu d3">
+    <img class="middle-img" src="https://www.image2url.com/r2/default/images/1777030534342-d80c76ac-a348-432b-b6b5-bca27aeeac26.png" alt="Studio Setup Preview">
+  </div>
+
+  <div class="section fu d4">
+    <div class="sec-label"><span>Yang Lo Dapetin</span></div>
+    <div class="inc-row">
+      <div class="inc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <p class="inc-text">E-Book format PDF dengan total 30++ halaman</p>
+    </div>
+    <div class="inc-row">
+      <div class="inc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+      <p class="inc-text">Pengenalan dasar <em>equipment</em> untuk studio</p>
+    </div>
+    <div class="inc-row">
+      <div class="inc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
+      <p class="inc-text">Cara menggunakan <em>flash</em> untuk foto pertama lo</p>
+    </div>
+    <div class="inc-row">
+      <div class="inc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <p class="inc-text">Akses materi selamanya, bisa dibaca langsung di HP</p>
+    </div>
+  </div>
+
+  <div class="section fu d3" style="padding-bottom:0;">
+    <div class="sec-label"><span>Kata Mereka</span></div>
+  </div>
+  <div class="testi-outer fu d3">
+    <div class="testi-track" id="testiTrack">
+      <div class="testi-card" onclick="cardClick(this,0)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="testi-avatar">R</div>
+          <div><div class="testi-name">Rizky A.</div><div class="testi-role">Pemula Fotografi</div></div>
+        </div>
+        <p class="testi-quote">"Ngebantu banget buat yang bener-bener nol soal lighting studio. Bahasanya gampang dimengerti, nggak bikin pusing baca teorinya."</p>
+      </div>
+      <div class="testi-card" onclick="cardClick(this,1)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="testi-avatar">D</div>
+          <div><div class="testi-name">Dewi S.</div><div class="testi-role">Fotografer MUA</div></div>
+        </div>
+        <p class="testi-quote">"Panduan wajib buat yang baru mau invest beli flash. Jadi tau bedanya tiap equipment sebelum mutusin nyewa atau beli sendiri."</p>
+      </div>
+      <div class="testi-card" onclick="cardClick(this,2)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="testi-avatar">B</div>
+          <div><div class="testi-name">Bagas K.</div><div class="testi-role">Freelancer</div></div>
+        </div>
+        <p class="testi-quote">"Setelah baca vol 1.5 ini langsung lebih pede ambil job di studio. Basicnya dijelasin rapi dari halaman pertama sampai akhir."</p>
+      </div>
+    </div>
+    <div class="testi-dots" id="testiDots">
+      <div class="dot active" onclick="goSlide(0)"></div>
+      <div class="dot" onclick="goSlide(1)"></div>
+      <div class="dot" onclick="goSlide(2)"></div>
+    </div>
+    <p class="testi-hint">Klik kartu untuk pause &amp; zoom</p>
+  </div>
+
+  <div class="section fu d5">
+    <div class="sec-label"><span>Mulai Belajar</span></div>
+  </div>
+  <div class="price-block fu d5" style="margin-bottom: 20px;">
+    <div class="price-row">
+      <div>
+        <div class="p-normal-label">Harga Normal</div>
+        <div class="p-normal-num">Rp 300.000</div>
+      </div>
+      <div>
+        <div class="p-now-label">Harga E-Book</div>
+        <div class="p-now-num">Rp 200<small>.000</small></div>
+      </div>
+    </div>
+    <a href="https://lynk.id/bejanawaktu/KnwgV4A/checkout?token=cGFyYW1zPSU1QiU1RCZiaWRfcHJpY2U9MCZxdHlfcHJvZD0xJnNlc3NpZD0mdG90YWxfcHJpY2U9JnRvdGFsX3VuaXQ9" target="_blank" class="btn-buy">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+      Beli Vol 1.5 Sekarang
+    </a>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">Photoacademy.id</div>
+    <p class="footer-copy">© 2026 Anest Photography · photoacademy.id<br>All Rights Reserved.</p>
+  </div>
+
+</main>
+
+<script>
+/* TESTIMONIAL SLIDER */
+const cards = document.querySelectorAll('.testi-card');
+const dots  = document.querySelectorAll('.dot');
+const track = document.getElementById('testiTrack');
+let cur = 0, paused = false, pausedIdx = -1, timer;
+
+function goSlide(idx) {
+  cards[cur].classList.remove('active');
+  dots[cur].classList.remove('active');
+  cur = (idx + cards.length) % cards.length;
+  cards[cur].classList.add('active');
+  dots[cur].classList.add('active');
+  track.style.transform = `translateX(-${cur * (cards[0].offsetWidth + 14)}px)`;
+}
+function cardClick(el, idx) {
+  if (paused && pausedIdx === idx) {
+    paused = false; pausedIdx = -1;
+    el.classList.remove('zoomed');
+    startTimer();
+  } else {
+    if (pausedIdx !== -1) cards[pausedIdx].classList.remove('zoomed');
+    paused = true; pausedIdx = idx;
+    clearInterval(timer);
+    goSlide(idx);
+    el.classList.add('zoomed');
+  }
+}
+function startTimer() {
+  clearInterval(timer);
+  timer = setInterval(() => { if (!paused) goSlide(cur + 1); }, 2800);
+}
+cards[0].classList.add('active');
+dots[0].classList.add('active');
+startTimer();
+</script>
+</body>
+</html>

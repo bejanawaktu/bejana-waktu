@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How I Shot This Vol 3.0 — Anest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #0b1712;
+  --bg2:    #0f1e17;
+  --green:  #00704a;
+  --green2: #005a3c;
+  --dim:    rgba(255,255,255,0.05);
+  --border: rgba(255,255,255,0.08);
+  --text:   rgba(255,255,255,0.88);
+  --muted:  rgba(255,255,255,0.38);
+  --faint:  rgba(255,255,255,0.10);
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── HERO ── */
+.hero-wrap {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.hero-blur {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 160px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 55%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 55%);
+  pointer-events: none;
+}
+.hero-fade {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 300px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(11,23,18,0.45) 30%,
+    rgba(11,23,18,0.88) 65%,
+    #0b1712 100%
+  );
+  pointer-events: none;
+}
+.hero-topbar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 52px 20px 0;
+  z-index: 10;
+}
+.back-pill {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(0,0,0,0.38);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 999px;
+  padding: 7px 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+}
+.hero-tag {
+  background: var(--green);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: #fff;
+}
+.hero-textblock {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 22px 30px;
+  z-index: 10;
+}
+.hero-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow::before {
+  content: ''; width: 18px; height: 1px;
+  background: var(--green); display: inline-block;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px; font-weight: 600;
+  line-height: 0.95; letter-spacing: -0.01em;
+  color: #fff; margin-bottom: 12px;
+}
+.hero-title em { font-style: italic; color: var(--green); }
+.hero-sub {
+  font-size: 10px; color: rgba(255,255,255,0.5);
+  letter-spacing: 0.08em;
+  font-family: 'Inter', sans-serif; font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* ── STATS ── */
+.stats-row {
+  display: flex; gap: 1px;
+  margin: 20px 22px 0;
+  border-radius: 20px; overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--border);
+}
+.stat-cell {
+  flex: 1; padding: 16px 8px;
+  text-align: center; background: var(--dim);
+}
+.stat-cell + .stat-cell { border-left: 1px solid var(--border); }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; color: #fff; line-height: 1; margin-bottom: 6px;
+}
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 8px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── SECTION ── */
+.section { padding: 30px 22px 0; }
+.sec-label {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.sec-label span {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--green); white-space: nowrap;
+}
+.sec-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba(0,112,74,0.3), transparent);
+}
+
+/* ── ABOUT ── */
+.pullquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 16px; line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+  padding-left: 16px;
+  border-left: 2px solid var(--green);
+  margin-bottom: 18px;
+}
+.body-text {
+  font-size: 12px; line-height: 1.7;
+  color: rgba(255,255,255,0.6); margin-bottom: 12px;
+  font-weight: 300;
+}
+.body-text strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid rgba(0,112,74,0.3);
+  background: rgba(0,112,74,0.1);
+  border-radius: 999px; padding: 6px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 500;
+  color: rgba(255,255,255,0.7);
+}
+.tag svg { color: var(--green); }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 30px 22px 0; }
+
+/* ── TOC BOX ── */
+.toc-box {
+  background: linear-gradient(135deg, rgba(0,112,74,0.08), rgba(0,112,74,0.02));
+  border: 1px solid rgba(0,112,74,0.15);
+  border-radius: 24px; padding: 28px 22px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.toc-box::before {
+  content: '12';
+  position: absolute; font-family: 'Playfair Display', serif;
+  font-size: 170px; color: rgba(0,112,74,0.04); line-height: 1;
+  top: -20px; right: -10px; pointer-events: none;
+}
+.toc-big {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px; line-height: 1; color: #fff; position: relative; font-weight: 400;
+}
+.toc-big sup {
+  font-size: 22px; color: var(--green); vertical-align: super; margin-left: 2px;
+  font-family: 'Inter', sans-serif; font-weight: 300;
+}
+.toc-cap {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-top: 8px;
+}
+.toc-desc {
+  font-size: 11px; color: rgba(255,255,255,0.4);
+  line-height: 1.6; margin-top: 12px; font-weight: 300;
+}
+
+/* ── PREVIEW ── */
+.preview-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.preview-grid .full { grid-column: 1/-1; }
+.preview-grid img {
+  width: 100%; aspect-ratio: 16/9;
+  object-fit: cover; border-radius: 16px;
+  border: 1px solid var(--border);
+  cursor: pointer; display: block;
+  transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), opacity 0.2s;
+}
+.preview-grid .full img { aspect-ratio: 16/7; }
+.preview-grid img:hover { transform: scale(1.02); opacity: 0.88; }
+
+/* ── TESTIMONIALS ── */
+.testi-outer { overflow: hidden; position: relative; }
+.testi-track {
+  display: flex; gap: 14px;
+  transition: transform 0.65s cubic-bezier(.77,0,.175,1);
+  align-items: center;
+  padding: 14px 4px 14px 22px;
+}
+.testi-card {
+  flex-shrink: 0; width: 272px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 24px; padding: 20px;
+  transition: transform 0.5s cubic-bezier(.34,1.56,.64,1), border-color 0.4s, box-shadow 0.4s;
+  cursor: pointer; will-change: transform;
+}
+.testi-card:nth-child(odd)  { transform: rotate(-1.5deg) translateY(3px); }
+.testi-card:nth-child(even) { transform: rotate(1.2deg) translateY(-3px); }
+.testi-card.active {
+  transform: rotate(0deg) translateY(0) !important;
+  border-color: rgba(0,112,74,0.3);
+}
+.testi-card.zoomed {
+  transform: rotate(0deg) translateY(0) scale(1.05) !important;
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  z-index: 5; position: relative;
+}
+.testi-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(0,112,74,0.15); border: 1px solid rgba(0,112,74,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+  color: var(--green); flex-shrink: 0;
+}
+.testi-name {
+  font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+  color: rgba(255,255,255,0.9);
+}
+.testi-role { font-size: 9px; color: var(--muted); margin-top: 2px; }
+.testi-quote {
+  font-size: 11px; line-height: 1.6;
+  color: rgba(255,255,255,0.6); font-style: italic; margin-top: 14px; font-weight: 300;
+}
+.testi-dots {
+  display: flex; justify-content: center; gap: 6px; padding: 6px 0 0;
+}
+.dot {
+  height: 6px; width: 6px; border-radius: 3px;
+  background: var(--faint); cursor: pointer;
+  transition: background 0.3s, transform 0.3s, width 0.3s;
+}
+.dot.active { background: var(--green); width: 20px; }
+.testi-hint {
+  text-align: center; font-size: 9px; color: rgba(255,255,255,0.2);
+  letter-spacing: 0.05em;
+  margin-top: 12px; font-family: 'Inter', sans-serif;
+}
+
+/* ── INCLUDES ── */
+.inc-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+}
+.inc-row:last-child { border-bottom: none; }
+.inc-icon {
+  width: 34px; height: 34px; border-radius: 12px;
+  background: rgba(0,112,74,0.1); border: 1px solid rgba(0,112,74,0.2);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.inc-icon svg { color: var(--green); }
+.inc-text { font-size: 11.5px; color: rgba(255,255,255,0.7); line-height: 1.5; font-weight: 300; }
+
+/* ── PRICE BLOCK ── */
+.price-block {
+  background: linear-gradient(135deg, rgba(0,112,74,0.12) 0%, rgba(0,112,74,0.03) 100%);
+  border: 1px solid rgba(0,112,74,0.2);
+  border-radius: 26px; padding: 26px 22px;
+  margin: 0 22px;
+  position: relative; overflow: hidden;
+}
+.price-block::after {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 130px; height: 130px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,112,74,0.15), transparent 70%);
+  pointer-events: none;
+}
+.price-row {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 20px;
+}
+.p-normal-label {
+  font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted);
+}
+.p-normal-num {
+  font-size: 13px; color: rgba(255,255,255,0.3);
+  text-decoration: line-through; margin-top: 4px; font-weight: 300;
+}
+.p-now-label {
+  font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); text-align: right;
+}
+.p-now-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px; line-height: 1;
+  color: #F0C040;
+  text-align: right; margin-top: 4px;
+}
+.p-now-num small { font-size: 20px; opacity: 0.8; }
+.btn-buy {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; background: var(--green); color: #fff;
+  font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 16px 20px; border-radius: 999px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-buy:hover { background: var(--green2); transform: translateY(-1px); }
+.buy-note {
+  text-align: center; font-size: 10px;
+  color: rgba(255,255,255,0.3); margin: 12px 22px 0; font-weight: 300;
+}
+
+/* ── BUNDLE ── */
+.bundle-card {
+  margin: 30px 22px 0;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 26px; padding: 24px;
+}
+.bundle-or {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 22px; color: var(--muted);
+  font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.bundle-or::before, .bundle-or::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.bundle-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(0,112,74,0.1); border: 1px solid rgba(0,112,74,0.2);
+  border-radius: 999px; padding: 5px 12px;
+  font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 12px;
+}
+.bundle-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; color: #fff; line-height: 1.2; margin-bottom: 10px;
+}
+.bundle-title em { color: var(--green); font-style: italic; }
+.bundle-desc {
+  font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 18px; font-weight: 300;
+}
+.bundle-vols {
+  display: flex; gap: 8px; margin-bottom: 20px;
+}
+.vol-pill {
+  flex: 1; background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 999px; padding: 10px 0; text-align: center;
+}
+.vol-pill.hi { background: rgba(0,112,74,0.1); border-color: rgba(0,112,74,0.25); }
+.vol-name {
+  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.7);
+}
+.vol-pill.hi .vol-name { color: var(--green); }
+.bundle-price-row {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+}
+.b-old { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: line-through; font-weight: 300; }
+.b-new {
+  font-family: 'Playfair Display', serif; font-size: 28px;
+  color: #F0C040; 
+}
+.b-save {
+  margin-left: auto;
+  background: rgba(240,192,64,0.1); border: 1px solid rgba(240,192,64,0.2);
+  border-radius: 999px; padding: 4px 10px;
+  font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600;
+  color: #F0C040;
+}
+.btn-bundle {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; background: transparent;
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 999px;
+  padding: 14px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+  color: rgba(255,255,255,0.8); text-decoration: none; cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-bundle:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); }
+
+/* ── FOOTER ── */
+.footer {
+  padding: 40px 22px 50px; text-align: center;
+}
+.footer-brand {
+  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-bottom: 16px;
+}
+.footer-links {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
+}
+.footer-links a {
+  font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 500;
+  color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: rgba(255,255,255,0.8); }
+.footer-links span { color: rgba(255,255,255,0.1); }
+.footer-copy { font-size: 10px; color: rgba(255,255,255,0.2); line-height: 1.6; font-weight: 300; }
+
+/* ── LIGHTBOX ── */
+#lb {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.95); z-index: 1000;
+  align-items: center; justify-content: center; padding: 24px;
+}
+#lb.open { display: flex; }
+#lb img {
+  max-width: 100%; max-height: 82vh; border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  transition: transform 0.4s cubic-bezier(.34,1.56,.64,1); cursor: zoom-in;
+}
+#lb img.zoomed { transform: scale(1.6); cursor: zoom-out; }
+#lb-close {
+  position: absolute; top: 18px; right: 18px;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 14px; color: white;
+}
+
+/* ── ANIMATE IN ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fu { animation: fadeUp 0.55s cubic-bezier(.22,1,.36,1) both; }
+.d1 { animation-delay: 0.05s; }
+.d2 { animation-delay: 0.13s; }
+.d3 { animation-delay: 0.22s; }
+.d4 { animation-delay: 0.32s; }
+.d5 { animation-delay: 0.44s; }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="hero-wrap fu">
+    <img class="hero-img"
+      src="https://www.image2url.com/r2/default/images/1777027817934-fe87ce78-5c7d-4b9f-a2f9-f01dc5121981.png"
+      alt="Hero Photo">
+    <div class="hero-blur"></div>
+    <div class="hero-fade"></div>
+
+    <div class="hero-topbar">
+      <a href="index.html" class="back-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
+        Back
+      </a>
+      <span class="hero-tag">E-Book Series</span>
+    </div>
+
+    <div class="hero-textblock">
+      <p class="hero-eyebrow">Vol 3.0 — Studio Lighting</p>
+      <h1 class="hero-title">HOW I<br><em>SHOT</em><br>THIS.</h1>
+      <p class="hero-sub">by Anest &nbsp;·&nbsp; 2026</p>
+    </div>
+  </div>
+
+  <div class="stats-row fu d1">
+    <div class="stat-cell">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Setup<br>Lighting</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">3×</div>
+      <div class="stat-label">Bagian<br>per Setup</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">HD</div>
+      <div class="stat-label">Foto &<br>Edit Steps</div>
+    </div>
+  </div>
+
+  <div class="section fu d2">
+    <div class="sec-label"><span>Tentang E-Book</span></div>
+    <div class="pullquote">Series e-book yang gue bikin khusus buat ngebantu lo setup berbagai kebutuhan lighting di studio — dari awal sampai siap foto.</div>
+    <p class="body-text">Di Vol 3.0 ini, gue breakdown <strong>10 setup lighting studio</strong> yang sering gue pake di pemotretan komersial dan portrait. Bukan cuma teori — setiap setup dikupas habis mulai dari posisi lampu, modifier yang dipake, sampai gimana cara editnya di post-production.</p>
+    <p class="body-text">Cocok banget buat lo yang pengen ningkatin kualitas foto studio, capek coba-coba setup sendiri, atau mau punya referensi lighting yang bisa langsung dipraktekin. Format e-book ini dibuat ringkas tapi padat — lo bisa buka sambil shooting langsung di studio.</p>
+    <div class="tag-row">
+      <span class="tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Hasil Foto Final</span>
+      <span class="tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Behind the Scene</span>
+      <span class="tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Cara Edit</span>
+      <span class="tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>Diagram Setup</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section fu d2">
+    <div class="sec-label"><span>Daftar Isi</span></div>
+    <div class="toc-box">
+      <div class="toc-big">12<sup>BAB</sup></div>
+      <div class="toc-cap">Total Materi dalam E-Book ini</div>
+      <p class="toc-desc">Mulai dari teori dasar lighting, 10 setup praktikal, hingga bonus product photography — semua dibahas tuntas dengan foto hasil, BTS, dan cara edit.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section fu d3">
+    <div class="sec-label"><span>Cuplikan Isi</span></div>
+    <div class="preview-grid">
+      <div class="full">
+        <img src="https://www.image2url.com/r2/default/images/1777028354657-b0e3549b-2230-4c56-82d2-70ca031801ae.png" onclick="openLB(this)" alt="Preview utama">
+      </div>
+      <div><img src="https://www.image2url.com/r2/default/images/1777028548444-a82c16b3-039d-4952-9854-0a94f2611285.png" onclick="openLB(this)" alt="BTS"></div>
+      <div><img src="https://www.image2url.com/r2/default/images/1777028654004-3005a19b-8f23-47b0-a847-b06d8f6f30f8.png" onclick="openLB(this)" alt="Edit steps"></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section fu d3" style="padding-bottom:0;">
+    <div class="sec-label"><span>Kata Mereka</span></div>
+  </div>
+  <div class="testi-outer fu d3">
+    <div class="testi-track" id="testiTrack">
+      <div class="testi-card" onclick="cardClick(this,0)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="testi-avatar">R</div>
+          <div><div class="testi-name">Rizky A.</div><div class="testi-role">Portrait Photographer · Jakarta</div></div>
+        </div>
+        <p class="testi-quote">"Akhirnya ngerti kenapa setup gue hasilnya gitu-gitu aja. Setelah baca ini langsung cobain di studio dan hasilnya beda banget. Worth it banget!"</p>
+      </div>
+      <div class="testi-card" onclick="cardClick(this,1)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="testi-avatar">D</div>
+          <div><div class="testi-name">Dewi S.</div><div class="testi-role">Fotografer MUA · Bandung</div></div>
+        </div>
+        <p class="testi-quote">"Section beauty dish sama butterfly lightingnya paling helpful buat gue yang sering shoot buat client MUA. Penjelasannya jelas, gambarnya detail."</p>
+      </div>
+      <div class="testi-card" onclick="cardClick(this,2)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="testi-avatar">F</div>
+          <div><div class="testi-name">Farhan M.</div><div class="testi-role">Freelance Photographer · Surabaya</div></div>
+        </div>
+        <p class="testi-quote">"Gue beli pas lagi bingung soal gel lighting. Setelah baca vol 3 ini, langsung ada referensi yang clear. Nggak nyangka bakal sedetail ini."</p>
+      </div>
+      <div class="testi-card" onclick="cardClick(this,3)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="testi-avatar">A</div>
+          <div><div class="testi-name">Ayu R.</div><div class="testi-role">Content Creator · Yogyakarta</div></div>
+        </div>
+        <p class="testi-quote">"Sebagai orang yang baru mulai sewa studio, ini beneran kayak cheat code. Diagram setupnya gampang banget dipahami, langsung bisa dipraktekin."</p>
+      </div>
+      <div class="testi-card" onclick="cardClick(this,4)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="testi-avatar">B</div>
+          <div><div class="testi-name">Bagas K.</div><div class="testi-role">Commercial Photographer · Bali</div></div>
+        </div>
+        <p class="testi-quote">"Udah beli vol 1 sama vol 2, dan vol 3 ini jauh lebih complete. Setup product lightingnya aja udah worth buat price segini."</p>
+      </div>
+    </div>
+    <div class="testi-dots" id="testiDots">
+      <div class="dot active" onclick="goSlide(0)"></div>
+      <div class="dot" onclick="goSlide(1)"></div>
+      <div class="dot" onclick="goSlide(2)"></div>
+      <div class="dot" onclick="goSlide(3)"></div>
+      <div class="dot" onclick="goSlide(4)"></div>
+    </div>
+    <p class="testi-hint">Klik kartu untuk pause &amp; zoom</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section fu d4">
+    <div class="sec-label"><span>Yang Lo Dapetin</span></div>
+    <div class="inc-row">
+      <div class="inc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <p class="inc-text">10 studio lighting setup lengkap dengan penjelasan teknikal</p>
+    </div>
+    <div class="inc-row">
+      <div class="inc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+      <p class="inc-text">Foto hasil + behind the scene per setiap setup</p>
+    </div>
+    <div class="inc-row">
+      <div class="inc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+      <p class="inc-text">Step-by-step editing di Lightroom & Photoshop</p>
+    </div>
+    <div class="inc-row">
+      <div class="inc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <p class="inc-text">Diagram posisi lampu & modifier yang detail</p>
+    </div>
+    <div class="inc-row">
+      <div class="inc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <p class="inc-text">Akses selamanya — PDF, bisa dibuka di HP kapan saja</p>
+    </div>
+    <div class="inc-row">
+      <div class="inc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <p class="inc-text">Bonus: 1 setup product photography eksklusif</p>
+    </div>
+  </div>
+
+  <div class="section fu d5">
+    <div class="sec-label"><span>Dapatkan Sekarang</span></div>
+  </div>
+  <div class="price-block fu d5">
+    <div class="price-row">
+      <div>
+        <div class="p-normal-label">Harga Normal</div>
+        <div class="p-normal-num">Rp 450.000</div>
+      </div>
+      <div>
+        <div class="p-now-label">Harga Sekarang</div>
+        <div class="p-now-num">Rp 350<small>.000</small></div>
+      </div>
+    </div>
+    <a href="https://lynk.id/bejanawaktu/Nn869JQ/checkout?token=cGFyYW1zPSU1QiU1RCZiaWRfcHJpY2U9MCZxdHlfcHJvZD0xJnNlc3NpZD0mdG90YWxfcHJpY2U9JnRvdGFsX3VuaXQ9" target="_blank" class="btn-buy">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+      Beli Vol 3.0 Sekarang
+    </a>
+  </div>
+  <p class="buy-note">Pembayaran aman · Dikirim langsung via email</p>
+
+  <div class="bundle-card">
+    <div class="bundle-or">Atau</div>
+    <div class="bundle-badge">⚡ Best Value</div>
+    <div class="bundle-title">Bundle 3 E-Book<br><em>Series</em></div>
+    <p class="bundle-desc">Dapet semua seri How I Shot This — Vol 1.0, Vol 2.0, dan Vol 3.0 sekaligus. Total 25+ setup lighting studio dalam satu paket.</p>
+    <div class="bundle-vols">
+      <div class="vol-pill"><div class="vol-name">Vol 1.0</div></div>
+      <div class="vol-pill"><div class="vol-name">Vol 2.0</div></div>
+      <div class="vol-pill hi"><div class="vol-name">Vol 3.0 ✓</div></div>
+    </div>
+    <div class="bundle-price-row">
+      <div>
+        <div style="font-size:10px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:600;margin-bottom:2px;">Normal</div>
+        <div class="b-old">Rp 1.050.000</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:rgba(255,255,255,.6);font-family:'Inter',sans-serif;font-weight:600;margin-bottom:2px;">Bundle</div>
+        <div class="b-new">Rp 449.000</div>
+      </div>
+      <span class="b-save">Hemat 30%+</span>
+    </div>
+    <a href="https://lynk.id/bejanawaktu/z1xP8vb/checkout?token=cGFyYW1zPSU1QiU1RCZiaWRfcHJpY2U9MCZxdHlfcHJvZD0xJnNlc3NpZD0mdG90YWxfcHJpY2U9JnRvdGFsX3VuaXQ9" class="btn-bundle">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+      Beli Paket Bundle
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:auto;"><path d="M9 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">Photoacademy.id</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><span>·</span>
+      <a href="#">Terms of Use</a><span>·</span>
+      <a href="#">Contact</a>
+    </div>
+    <p class="footer-copy">© 2025 Anest Photography · photoacademy.id<br>All Rights Reserved.</p>
+  </div>
+
+</main>
+
+<div id="lb">
+  <div id="lb-close" onclick="closeLB()">✕</div>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+/* LIGHTBOX */
+let lbZ = false;
+function openLB(el) {
+  document.getElementById('lb-img').src = el.src;
+  document.getElementById('lb-img').classList.remove('zoomed');
+  lbZ = false;
+  document.getElementById('lb').classList.add('open');
+}
+function closeLB() { document.getElementById('lb').classList.remove('open'); }
+document.getElementById('lb').addEventListener('click', function(e) {
+  if (e.target === this) { closeLB(); return; }
+  if (e.target.tagName === 'IMG') { lbZ = !lbZ; e.target.classList.toggle('zoomed', lbZ); }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+
+/* TESTIMONIAL SLIDER */
+const cards = document.querySelectorAll('.testi-card');
+const dots  = document.querySelectorAll('.dot');
+const track = document.getElementById('testiTrack');
+let cur = 0, paused = false, pausedIdx = -1, timer;
+
+function goSlide(idx) {
+  cards[cur].classList.remove('active');
+  dots[cur].classList.remove('active');
+  cur = (idx + cards.length) % cards.length;
+  cards[cur].classList.add('active');
+  dots[cur].classList.add('active');
+  track.style.transform = `translateX(-${cur * (cards[0].offsetWidth + 14)}px)`;
+}
+function cardClick(el, idx) {
+  if (paused && pausedIdx === idx) {
+    paused = false; pausedIdx = -1;
+    el.classList.remove('zoomed');
+    startTimer();
+  } else {
+    if (pausedIdx !== -1) cards[pausedIdx].classList.remove('zoomed');
+    paused = true; pausedIdx = idx;
+    clearInterval(timer);
+    goSlide(idx);
+    el.classList.add('zoomed');
+  }
+}
+function startTimer() {
+  clearInterval(timer);
+  timer = setInterval(() => { if (!paused) goSlide(cur + 1); }, 2800);
+}
+cards[0].classList.add('active');
+dots[0].classList.add('active');
+startTimer();
+</script>
+</body>
+</html>

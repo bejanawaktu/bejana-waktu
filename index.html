@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bejana Waktu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f2720',    
+                        brandGreen: '#00704a', 
+                        lightGreen: '#1e3f33',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .vertical-text { writing-mode: vertical-rl; text-orientation: mixed; }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .pulse-subtle { animation: pulseSubtle 1.8s infinite ease-in-out; }
+        @keyframes pulseSubtle {
+            0%, 100% { opacity: 0.3; transform: scale(0.9) translateX(0); }
+            50% { opacity: 1; transform: scale(1.15) translateX(3px); }
+        }
+
+        /* Footer social icon hover glow */
+        .social-icon-btn {
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+        .social-icon-btn:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 0 14px rgba(0,112,74,0.55);
+            background: rgba(0,112,74,0.25);
+        }
+        /* Divider line shimmer */
+        .divider-glow {
+            background: linear-gradient(90deg, transparent, rgba(0,112,74,0.6), rgba(255,255,255,0.25), rgba(0,112,74,0.6), transparent);
+        }
+
+        /* ── PRODUCT CARD REDESIGN ── */
+        .product-card-new {
+            flex-shrink: 0;
+            width: 140px;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
+            border-radius: 18px;
+            overflow: hidden;
+            background: #162e25;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+            user-select: none;
+        }
+        .product-card-new.zoomed {
+            transform: scale(1.07) translateY(-5px);
+            z-index: 30;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+        }
+        .product-card-new .card-cover {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            display: block;
+            border-radius: 0;
+        }
+        .product-card-new .card-body {
+            padding: 9px 10px 10px;
+        }
+        .product-card-new .card-label {
+            font-size: 6.5px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #00704a;
+            margin-bottom: 3px;
+        }
+        .product-card-new .card-title {
+            font-size: 9.5px;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.3;
+            margin-bottom: 7px;
+        }
+        .product-card-new .card-price-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 8px;
+        }
+        .product-card-new .card-price-old {
+            font-size: 7px;
+            color: #6b7280;
+            text-decoration: line-through;
+        }
+        .product-card-new .card-price-new {
+            font-size: 9.5px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+        .product-card-new .card-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #00704a;
+            color: #fff;
+            font-size: 7.5px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            padding: 6px 0;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s, opacity 0.2s;
+        }
+        .product-card-new .card-btn:hover {
+            background: #005a3c;
+        }
+    </style>
+</head>
+<body class="bg-darkBg text-white font-sans min-h-screen">
+
+    <main class="w-full max-w-[375px] mx-auto relative overflow-x-hidden">
+
+        <header class="relative px-5 pt-16 pb-10 min-h-[300px]">
+            
+            <div class="relative z-20">
+                <p class="text-[8px] tracking-widest text-gray-300 uppercase mb-1">Portrait & Commercial Photographer.</p>
+                <h1 id="hero-title" class="text-3xl font-extrabold mb-4 leading-tight fade-in">HALLO, I'M <br> <span class="text-brandGreen">ANEST</span></h1>
+                
+                <div class="mb-4 relative">
+                    <h2 id="hero-subtitle" class="text-xs font-bold text-brandGreen uppercase mb-1.5 fade-in">Portrait & Commercial Photographer</h2>
+                    <p id="hero-desc" class="text-[9px] text-gray-400 text-justify mb-4 w-[65%] leading-relaxed fade-in">Fotografer portrait & commercial profesional. Sejak 2024 mendirikan @photoacademy.id sebagai wadah belajar fotografi untuk semua level photographer.</p>
+                    
+                    <div class="flex items-center gap-3">
+                        <a id="hero-btn" href="https://www.instagram.com/bejanawaktu" target="_blank" class="flex items-center justify-center bg-white text-brandGreen font-bold px-5 h-8 rounded-full text-[10px] shadow-lg transition hover:bg-gray-100 fade-in">DM Me!</a>
+
+                        <div class="flex items-center justify-center gap-2 bg-brandGreen px-2 h-8 rounded-full shadow-lg fade-in">
+                            <img id="hero-thumb-1" onclick="changeHeroProduct(1, true)" src="https://www.image2url.com/r2/default/images/1776653916737-854e5d87-7933-4fbb-ad71-603fbb0edcd4.png" class="hero-thumb w-6 h-6 object-cover rounded-full cursor-pointer border-[1.5px] border-white transition hover:opacity-80">
+                            <img id="hero-thumb-2" onclick="changeHeroProduct(2, true)" src="https://www.image2url.com/r2/default/images/1776654425380-9bfba9c7-1dea-4426-babf-7e355384d848.png" class="hero-thumb w-6 h-6 object-cover rounded-full cursor-pointer border-[1.5px] border-transparent transition hover:opacity-80">
+                            <img id="hero-thumb-3" onclick="changeHeroProduct(3, true)" src="https://www.image2url.com/r2/default/images/1776655063572-4f5cf550-9b4b-4bfd-b0b7-d9b2731ced79.png" class="hero-thumb w-6 h-6 object-cover rounded-full cursor-pointer border-[1.5px] border-transparent transition hover:opacity-80">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="hero-img-container" class="absolute right-[-10px] bottom-0 w-full flex justify-end z-0 pointer-events-none">
+                <img id="main-hero-img" src="https://www.image2url.com/r2/default/images/1776920598087-cc7cb7eb-efb2-44b3-8de4-371efa4daad1.png" alt="Produk Pilihan" class="w-[220px] drop-shadow-2xl fade-in pointer-events-auto opacity-30 object-contain">
+            </div>
+            
+            <div id="hero-vertical-text" class="absolute right-3 top-8 vertical-text text-6xl font-extrabold text-white opacity-10 tracking-widest uppercase z-0 pointer-events-none hidden">
+                ANEST
+            </div>
+        </header>
+
+        <section class="px-3 mb-2">
+            <div class="flex justify-center items-center overflow-x-auto gap-2 hide-scrollbar bg-lightGreen p-1.5 rounded-full w-max mx-auto">
+                <button onclick="changeCategory('drinks')" id="tab-drinks" class="tab-btn bg-white text-darkBg px-4 py-1.5 rounded-full text-[8px] font-bold whitespace-nowrap text-center transition">EBOOK</button>
+                <button onclick="changeCategory('food')" id="tab-food" class="tab-btn text-white px-4 py-1.5 rounded-full text-[8px] font-bold whitespace-nowrap text-center transition hover:bg-white hover:text-darkBg">REKAMAN</button>
+                <button onclick="changeCategory('athome')" id="tab-athome" class="tab-btn text-white px-4 py-1.5 rounded-full text-[8px] font-bold whitespace-nowrap text-center transition hover:bg-white hover:text-darkBg">VIDEO COURSE</button>
+                <button onclick="changeCategory('merch')" id="tab-merch" class="tab-btn text-white px-4 py-1.5 rounded-full text-[8px] font-bold whitespace-nowrap text-center transition hover:bg-white hover:text-darkBg">MENTORING</button>
+            </div>
+        </section>
+
+        <section class="relative mb-6 overflow-hidden min-h-[260px]">
+            <div id="swipe-indicator" class="absolute right-3 top-[52%] transform -translate-y-1/2 z-30 pointer-events-none hidden pulse-subtle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+            </div>
+
+            <!-- EBOOK -->
+            <div id="carousel-drinks" class="carousel-content flex overflow-x-auto gap-3 hide-scrollbar py-6 pl-5 pr-10 fade-in snap-x snap-mandatory relative z-10">
+
+                <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
+                    <img src="https://www.image2url.com/r2/default/images/1777001100705-7f906274-84ac-4006-892d-05552e02aea3.png" class="card-cover">
+                    <div class="card-body">
+                        <p class="card-label">Vol. 1.5</p>
+                        <h3 class="card-title">LIGHTING BEGINNER'S GUIDE</h3>
+                        <div class="card-price-row">
+                            <span class="card-price-old">Rp 300.000</span>
+                            <span class="card-price-new">Rp 200.000</span>
+                        </div>
+                        <a href="Studio Lighting.html" onclick="event.stopPropagation()" target="_blank" class="card-btn">BELI SEKARANG</a>
+                    </div>
+                </div>
+
+                <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
+                    <img src="https://www.image2url.com/r2/default/images/1776998476824-c91e884e-4148-4329-9665-479c147d480e.png" class="card-cover">
+                    <div class="card-body">
+                        <p class="card-label">Digital Ebook</p>
+                        <h3 class="card-title">HOW I SHOT THIS VOL. 3.0</h3>
+                        <div class="card-price-row">
+                            <span class="card-price-old">Rp 450.000</span>
+                            <span class="card-price-new">Rp 350.000</span>
+                        </div>
+                        <a href="how i shot this photo 1.html" onclick="event.stopPropagation()" target="_blank" class="card-btn">BELI SEKARANG</a>
+                    </div>
+                </div>
+
+                <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
+                    <img src="https://www.image2url.com/r2/default/images/1777000986061-bae6488a-c185-4a01-970d-d68af1e5aed1.png" class="card-cover">
+                    <div class="card-body">
+                        <p class="card-label">Complete Bundle</p>
+                        <h3 class="card-title">HOW I SHOT THIS SERIES</h3>
+                        <div class="card-price-row">
+                            <span class="card-price-old">Rp 650.000</span>
+                            <span class="card-price-new">Rp 499.000</span>
+                        </div>
+                        <a href="how i shot this series.html" onclick="event.stopPropagation()" target="_blank" class="card-btn">BELI SEKARANG</a>
+                    </div>
+                </div>
+
+                <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
+                    <img src="https://www.image2url.com/r2/default/images/1777001029744-c901eab1-e008-45a8-8599-d0b6a081f5da.png" class="card-cover">
+                    <div class="card-body">
+                        <p class="card-label">Bundle Spesial</p>
+                        <h3 class="card-title">PAKET 2 EBOOK</h3>
+                        <div class="card-price-row">
+                            <span class="card-price-old">Rp 800.000</span>
+                            <span class="card-price-new">Rp 599.000</span>
+                        </div>
+                        <a href="1 price.html" onclick="event.stopPropagation()" target="_blank" class="card-btn">BELI SEKARANG</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- REKAMAN -->
+            <div id="carousel-food" class="carousel-content hidden flex overflow-x-auto gap-3 hide-scrollbar py-6 pl-5 pr-10 fade-in snap-x snap-mandatory relative z-10">
+
+                <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
+                    <img src="https://www.image2url.com/r2/default/images/1777002292712-aa604f6e-0f65-46cb-87f5-55c6116be09d.png" class="card-cover">
+                    <div class="card-body">
+                        <p class="card-label">Full Recording</p>
+                        <h3 class="card-title">WORKSHOP 8 JAN 2025</h3>
+                        <div class="card-price-row">
+                            <span class="card-price-old">Rp 500.000</span>
+                            <span class="card-price-new">Rp 399.000</span>
+                        </div>
+                        <a href="rekaman1.html" onclick="event.stopPropagation()" target="_blank" class="card-btn">BELI SEKARANG</a>
+                    </div>
+                </div>
+
+                <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
+                    <img src="https://www.image2url.com/r2/default/images/1777002336051-1eb44ef7-5a78-4b4f-9648-858c9cbf8578.png" class="card-cover">
+                    <div class="card-body">
+                        <p class="card-label">Full Recording</p>
+                        <h3 class="card-title">WORKSHOP 12 JAN 2025</h3>
+                        <div class="card-price-row">
+                            <span class="card-price-old">Rp 500.000</span>
+                            <span class="card-price-new">Rp 399.000</span>
+                        </div>
+                        <a href="rekaman2.html" onclick="event.stopPropagation()" target="_blank" class="card-btn">BELI SEKARANG</a>
+                    </div>
+                </div>
+
+                <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
+                    <img src="https://www.image2url.com/r2/default/images/1777002367444-c0fa3fb3-e762-44b5-a8bb-ded89640eb23.png" class="card-cover">
+                    <div class="card-body">
+                        <p class="card-label">Rekaman 9 Jun 2024</p>
+                        <h3 class="card-title">ADVANCED LIGHTING STUDIO</h3>
+                        <div class="card-price-row">
+                            <span class="card-price-old">Rp 350.000</span>
+                            <span class="card-price-new">Rp 249.000</span>
+                        </div>
+                        <a href="rekaman lighting.html" onclick="event.stopPropagation()" target="_blank" class="card-btn">BELI SEKARANG</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VIDEO COURSE -->
+            <div id="carousel-athome" class="carousel-content hidden flex overflow-x-auto gap-3 hide-scrollbar py-6 pl-5 pr-10 fade-in snap-x snap-mandatory relative z-10">
+
+                <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
+                    <img src="https://www.image2url.com/r2/default/images/1777003565871-fc3d5703-dcee-46b5-a18b-30bb47a3011e.png" class="card-cover">
+                    <div class="card-body">
+                        <p class="card-label">Video Course</p>
+                        <h3 class="card-title">BASIC PORTRAIT RETOUCHING</h3>
+                        <div class="card-price-row">
+                            <span class="card-price-old">Rp 450.000</span>
+                            <span class="card-price-new">Rp 349.000</span>
+                        </div>
+                        <a href="video course 1.html" onclick="event.stopPropagation()" target="_blank" class="card-btn">BELI SEKARANG</a>
+                    </div>
+                </div>
+
+                <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
+                    <img src="https://www.image2url.com/r2/default/images/1777003586083-0635321e-5a5f-4e61-aefd-4ed893160490.png" class="card-cover">
+                    <div class="card-body">
+                        <p class="card-label">Video Course</p>
+                        <h3 class="card-title">HEADSHOT PHOTOGRAPH GUIDE</h3>
+                        <div class="card-price-row">
+                            <span class="card-price-old">Rp 450.000</span>
+                            <span class="card-price-new">Rp 349.000</span>
+                        </div>
+                        <a href="video course 2.html" onclick="event.stopPropagation()" target="_blank" class="card-btn">BELI SEKARANG</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MENTORING -->
+            <div id="carousel-merch" class="carousel-content hidden flex overflow-x-auto gap-3 hide-scrollbar py-6 pl-5 pr-10 fade-in snap-x snap-mandatory relative z-10">
+
+                <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
+                    <img src="https://www.image2url.com/r2/default/images/1777004787183-d4b7fc02-d6af-4181-94e3-459ec5e00d83.png" class="card-cover">
+                    <div class="card-body">
+                        <p class="card-label">Max 5 Org / Bulan</p>
+                        <h3 class="card-title">PRIVATE MENTORING</h3>
+                        <div class="card-price-row">
+                            <span class="card-price-old">Rp 1.500.000</span>
+                            <span class="card-price-new">Rp 999.000</span>
+                        </div>
+                        <a href="private" onclick="event.stopPropagation()" target="_blank" class="card-btn">DAFTAR SEKARANG</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="px-4 py-6">
+            <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl min-h-[400px] flex flex-col items-center pt-8 pb-8 border border-white/10 bg-darkBg">
+                
+                <div class="absolute inset-0 z-0">
+                    <div id="auto-bg-slider" class="flex w-full h-full transition-transform duration-700 ease-in-out">
+                        <div class="w-full h-full flex-shrink-0 relative">
+                            <img src="https://www.image2url.com/r2/default/images/1777005980338-d14a356c-9af9-48d0-8bee-a5f3201928d3.png" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div> 
+                        </div>
+                        <div class="w-full h-full flex-shrink-0 relative">
+                            <img src="https://www.image2url.com/r2/default/images/1777006030119-339498e2-0138-4c9b-8e84-747d4977cd82.png" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
+                        </div>
+                        <div class="w-full h-full flex-shrink-0 relative">
+                            <img src="https://www.image2url.com/r2/default/images/1777006089168-1bcfe916-6a25-405d-940c-40fc30b3da67.png" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-black uppercase leading-tight text-center relative z-10 text-white drop-shadow-xl mt-2 mb-5">EXCLUSIVE<br>SESSION</h2>
+                
+                <div class="relative z-10 flex justify-center mb-6">
+                     <img src="https://www.image2url.com/r2/default/images/1777005809936-95c43f7b-c76b-47a2-be53-28c5e2a4f1f9.png" class="w-24 drop-shadow-2xl rounded-xl border border-white/20">
+                </div>
+
+                <div class="absolute top-[55%] left-[-20%] w-[140%] bg-brandGreen py-2 transform -rotate-6 z-0 flex justify-between overflow-hidden shadow-lg opacity-60 pointer-events-none">
+                     <span class="font-bold tracking-widest text-[10px] mx-3 whitespace-nowrap">PHOTOACADEMY</span>
+                     <span class="font-bold tracking-widest text-[10px] mx-3 whitespace-nowrap">PHOTOACADEMY</span>
+                     <span class="font-bold tracking-widest text-[10px] mx-3 whitespace-nowrap">PHOTOACADEMY</span>
+                </div>
+
+                <div class="px-6 relative z-10 flex flex-col items-center mt-auto w-full">
+                    <p class="text-[9px] text-gray-200 text-center leading-relaxed drop-shadow-md font-medium mb-5 w-[90%]">Private Lightning Session April 2026 — sesi eksklusif bersama Anest. Slot sangat terbatas, hanya tersedia untuk klien terpilih. Rp 6.000.000</p>
+                    <a href="private.html" target="_blank" class="inline-block bg-brandGreen border border-white/20 text-white text-[9px] font-bold py-2 px-6 rounded-full shadow-lg transition hover:bg-white hover:text-brandGreen">BOOK NOW</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5 py-8 mt-2">
+            <div class="flex justify-center mb-8">
+                <div class="bg-gradient-to-r from-brandGreen to-lightGreen text-white px-8 py-2 rounded-full font-black text-[10px] tracking-widest shadow-[0_0_15px_rgba(0,112,74,0.6)] border border-white/20">
+                    MOST POPULAR
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-5">
+                <div class="bg-gradient-to-br from-[#123128] to-darkBg p-4 rounded-3xl flex items-center relative shadow-2xl border border-brandGreen/50 overflow-hidden group">
+                    <div class="absolute -left-10 top-0 w-32 h-32 bg-brandGreen rounded-full blur-3xl opacity-30"></div>
+                    <div class="absolute top-0 right-4 bg-yellow-400 text-yellow-900 font-black text-[8px] px-3 py-1 rounded-b-lg shadow-md z-20 tracking-wider">
+                        #1 BEST SELLER
+                    </div>
+
+                    <div class="w-24 h-24 flex-shrink-0 bg-white rounded-2xl p-1 shadow-inner relative z-10">
+                        <img src="https://www.image2url.com/r2/default/images/1777000986061-bae6488a-c185-4a01-970d-d68af1e5aed1.png" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
+                    </div>
+
+                    <div class="ml-4 flex flex-col justify-center relative z-10 w-full pt-2">
+                        <div class="flex items-center gap-1 mb-1">
+                            <span class="text-yellow-400 text-[10px]">★★★★★</span>
+                            <span class="text-[7px] text-gray-400">(4.9)</span>
+                        </div>
+                        <h3 class="text-white font-black text-sm tracking-wide mb-1">HOW I SHOT THIS SERIES</h3>
+                        <p class="text-[7px] text-gray-300 mb-3 line-clamp-2 leading-tight">Koleksi lengkap How I Shot This. Panduan komprehensif teknik fotografi portrait & commercial dari Anest.</p>
+                        <a href="how i shot this series.html" target="_blank" class="w-max bg-brandGreen text-white py-1.5 px-5 rounded-full text-[8px] font-bold shadow-lg transition hover:scale-105 border border-white/20">GET IT NOW</a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-lightGreen/40 p-3 rounded-3xl flex flex-col relative pt-4 shadow-lg border border-white/10 group overflow-hidden">
+                        <div class="absolute top-0 left-4 bg-gray-300 text-gray-800 font-black text-[8px] px-2 py-0.5 rounded-b-md z-10">#2</div>
+                        <div class="w-full h-24 bg-white rounded-2xl p-1 shadow-inner relative z-10 mb-3">
+                            <img src="https://www.image2url.com/r2/default/images/1776998476824-c91e884e-4148-4329-9665-479c147d480e.png" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <h3 class="text-white font-extrabold text-[10px] tracking-wide mb-1">HOW I SHOT THIS VOL. 3.0</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <span class="text-yellow-400 text-[8px]">★★★★☆</span>
+                        </div>
+                        <a href="how i shot this photo 1.html" target="_blank" class="block w-full bg-white text-brandGreen py-2 rounded-full text-[8px] font-bold shadow-md text-center transition hover:bg-gray-200 mt-auto">ADD TO CART</a>
+                    </div>
+
+                    <div class="bg-lightGreen/40 p-3 rounded-3xl flex flex-col relative pt-4 shadow-lg border border-white/10 group overflow-hidden">
+                        <div class="absolute top-0 left-4 bg-orange-300 text-orange-900 font-black text-[8px] px-2 py-0.5 rounded-b-md z-10">#3</div>
+                        <div class="w-full h-24 bg-white rounded-2xl p-1 shadow-inner relative z-10 mb-3">
+                            <img src="https://www.image2url.com/r2/default/images/1777003565871-fc3d5703-dcee-46b5-a18b-30bb47a3011e.png" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <h3 class="text-white font-extrabold text-[10px] tracking-wide mb-1">BASIC PORTRAIT RETOUCHING</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <span class="text-yellow-400 text-[8px]">★★★★☆</span>
+                        </div>
+                        <a href="rekaman1.html" target="_blank" class="block w-full bg-white text-brandGreen py-2 rounded-full text-[8px] font-bold shadow-md text-center transition hover:bg-gray-200 mt-auto">ADD TO CART</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5 py-8 flex gap-4 bg-darkBg mt-4 items-center">
+            <div class="w-5 flex items-center justify-center">
+                <div class="vertical-text text-base font-bold tracking-widest uppercase text-brandGreen rotate-180 text-center whitespace-nowrap">
+                    JOIN US
+                </div>
+            </div>
+            
+            <div class="flex-1 flex flex-wrap justify-center gap-2">
+                <!-- DATABASE FREELANCER: briefcase icon -->
+                <a href="https://forms.gle/ZC89ajyX9dwaJz6a8" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center shadow-lg transition hover:-translate-y-1">
+                    <div class="w-8 h-8 rounded-full bg-[#e6f4ef] flex items-center justify-center mb-1.5">
+                        <svg class="w-4 h-4 text-[#00704a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12.01"/><path d="M2 12h20"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-extrabold text-[7px] text-brandGreen text-center leading-tight">DATABASE FREELANCER</h4>
+                    <p class="text-[5px] text-gray-500 text-center mt-0.5">Join · Maret 2026</p>
+                </a>
+                <!-- WORKSHOP: calendar icon -->
+                <a href="https://bit.ly/daftarworkshopPA25" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center shadow-lg transition hover:-translate-y-1">
+                    <div class="w-8 h-8 rounded-full bg-[#e6f4ef] flex items-center justify-center mb-1.5">
+                        <svg class="w-4 h-4 text-[#00704a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-extrabold text-[7px] text-brandGreen text-center leading-tight">WORKSHOP APRIL 2026</h4>
+                    <p class="text-[5px] text-gray-500 text-center mt-0.5">Form Pendaftaran</p>
+                </a>
+                <!-- AFFILIATE: share/link icon -->
+                <a href="https://forms.gle/kVSadVvrPndePqoZ8" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center shadow-lg transition hover:-translate-y-1">
+                    <div class="w-8 h-8 rounded-full bg-[#e6f4ef] flex items-center justify-center mb-1.5">
+                        <svg class="w-4 h-4 text-[#00704a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-extrabold text-[7px] text-brandGreen text-center leading-tight">JOIN AFFILIATE TEAM</h4>
+                    <p class="text-[5px] text-gray-500 text-center mt-0.5">Form Daftar</p>
+                </a>
+                <!-- COMMUNITY: users/group icon -->
+                <a href="https://forms.gle/XV4p7J4sKf1sLjkp7" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center shadow-lg transition hover:-translate-y-1 mt-1">
+                    <div class="w-8 h-8 rounded-full bg-[#e6f4ef] flex items-center justify-center mb-1.5">
+                        <svg class="w-4 h-4 text-[#00704a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-extrabold text-[7px] text-brandGreen text-center leading-tight">PHOTO ACADEMY COMMUNITY</h4>
+                    <p class="text-[5px] text-gray-500 text-center mt-0.5">WhatsApp Group</p>
+                </a>
+                <!-- LIGHTING CLUB: lightbulb/aperture icon -->
+                <a href="https://chat.whatsapp.com/I5WuNLihYl0LpRZDCGHGtP" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center shadow-lg transition hover:-translate-y-1 mt-1">
+                    <div class="w-8 h-8 rounded-full bg-[#e6f4ef] flex items-center justify-center mb-1.5">
+                        <svg class="w-4 h-4 text-[#00704a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/><line x1="14.31" y1="8" x2="20.05" y2="17.94"/><line x1="9.69" y1="8" x2="21.17" y2="8"/><line x1="7.38" y1="12" x2="13.12" y2="2.06"/><line x1="9.69" y1="16" x2="3.95" y2="6.06"/><line x1="14.31" y1="16" x2="2.83" y2="16"/><line x1="16.62" y1="12" x2="10.88" y2="21.94"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-extrabold text-[7px] text-brandGreen text-center leading-tight">LIGHTING LEARNING CLUB</h4>
+                    <p class="text-[5px] text-gray-500 text-center mt-0.5">By Bejana Waktu</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="px-5 pt-6 pb-10 relative overflow-hidden">
+
+            <div class="absolute top-10 left-0 w-32 h-32 bg-brandGreen rounded-full blur-[60px] opacity-20 pointer-events-none"></div>
+            <div class="absolute bottom-10 right-0 w-24 h-24 bg-brandGreen rounded-full blur-[50px] opacity-15 pointer-events-none"></div>
+
+            <div class="flex items-center justify-between mb-5 relative z-10">
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                        </span>
+                        <p class="text-[7px] tracking-[0.25em] text-white/50 uppercase font-semibold">Latest Content</p>
+                    </div>
+                    <h2 class="text-xl font-black tracking-tight text-white leading-none">THE <span class="text-brandGreen">REELS</span></h2>
+                </div>
+                <a href="https://www.instagram.com/bejanawaktu" target="_blank" class="flex items-center gap-1.5 bg-white/8 border border-white/15 rounded-full px-3 py-1.5 transition hover:bg-white/15">
+                    <svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <span class="text-[7px] text-white/70 font-semibold">@bejanawaktu</span>
+                </a>
+            </div>
+
+            <div class="flex gap-2.5 relative z-10" style="height: 300px;">
+
+                <div onclick="https://www.instagram.com/bejanawaktu/reel/DXEXUXJDlLT/" class="reel-card relative rounded-[22px] overflow-hidden cursor-pointer flex-shrink-0 shadow-2xl border border-white/10 group" style="width: 55%; height: 100%;">
+                    <video autoplay muted loop playsinline class="w-full h-full object-cover scale-[1.02] group-hover:scale-[1.06] transition-transform duration-700">
+                        <source src="https://www.image2url.com/r2/default/videos/1777006600163-0fc2bdae-c7ae-4861-821a-ff97fd930256.mp4" type="video/mp4">
+                    </video>
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/30 pointer-events-none"></div>
+
+                    <div class="absolute top-3 left-3 flex items-center gap-1.5 z-10">
+                        <div class="bg-brandGreen/90 backdrop-blur-sm text-white text-[6.5px] font-black px-2 py-0.5 rounded-full tracking-wider uppercase">✦ FEATURED</div>
+                    </div>
+
+                    <div class="absolute inset-0 flex items-center justify-center z-10 opacity-70 group-hover:opacity-0 transition-opacity duration-300">
+                        <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-lg">
+                            <svg class="w-4 h-4 text-white ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 right-0 p-3 z-10">
+                        <p class="text-white font-black text-[10px] leading-tight mb-1">8 years and never regrets my 2016’s</p>
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-1">
+                                <svg class="w-2.5 h-2.5 text-white/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                                <span class="text-[6.5px] text-white/60">17.1K</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <svg class="w-2.5 h-2.5 text-white/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <span class="text-[6.5px] text-white/60">1351</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2.5 flex-1">
+
+                    <div onclick="https://www.instagram.com/bejanawaktu/reel/DW1XOmyiZbI/" class="reel-card relative rounded-[18px] overflow-hidden cursor-pointer shadow-xl border border-white/10 group flex-1">
+                        <video autoplay muted loop playsinline class="w-full h-full object-cover scale-[1.02] group-hover:scale-[1.07] transition-transform duration-700">
+                            <source src="https://www.image2url.com/r2/default/videos/1777006756562-f1b2d46a-038b-4c71-9213-18364e800d2c.mp4" type="video/mp4">
+                        </video>
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none"></div>
+
+                        <div class="absolute inset-0 flex items-center justify-center z-10 opacity-60 group-hover:opacity-0 transition-opacity duration-300">
+                            <div class="w-7 h-7 rounded-full bg-white/25 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+                                <svg class="w-3 h-3 text-white ml-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-0 left-0 right-0 p-2.5 z-10">
+                            <p class="text-white font-black text-[8px] leading-tight">pernah denger kali..</p>
+                            <div class="flex items-center gap-1 mt-0.5">
+                                <svg class="w-2 h-2 text-white/50" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                                <span class="text-[5.5px] text-white/50">19.7K</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div onclick="https://www.instagram.com/bejanawaktu/reel/DU58I79jyIL/" class="reel-card relative rounded-[18px] overflow-hidden cursor-pointer shadow-xl border border-white/10 group flex-1">
+                        <video autoplay muted loop playsinline class="w-full h-full object-cover scale-[1.02] group-hover:scale-[1.07] transition-transform duration-700">
+                            <source src="https://www.image2url.com/r2/default/videos/1777006989614-7394fedc-71fa-4ae4-bec4-2348bb533b6f.mp4" type="video/mp4">
+                        </video>
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none"></div>
+
+                        <div class="absolute inset-0 flex items-center justify-center z-10 opacity-60 group-hover:opacity-0 transition-opacity duration-300">
+                            <div class="w-7 h-7 rounded-full bg-white/25 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+                                <svg class="w-3 h-3 text-white ml-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-0 left-0 right-0 p-2.5 z-10">
+                            <p class="text-white font-black text-[8px] leading-tight">The power of understanding mix lighting.</p>
+                            <div class="flex items-center gap-1 mt-0.5">
+                                <svg class="w-2 h-2 text-white/50" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                                <span class="text-[5.5px] text-white/50">29.8K</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="relative z-10 mt-4 flex items-center justify-between">
+                <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent to-white/10 mr-3"></div>
+                <a href="https://www.instagram.com/bejanawaktu" target="_blank" class="flex items-center gap-1.5 text-[7.5px] text-white/50 hover:text-white transition font-semibold tracking-wider uppercase">
+                    See All Reels
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+
+        </section>
+        <footer class="px-5 pb-8 pt-2">
+
+            <div class="rounded-[2rem] border border-white/15 bg-white/5 backdrop-blur-sm px-5 py-6 flex flex-col items-center gap-5 shadow-[inset_0_0_30px_rgba(255,255,255,0.03)]">
+
+                <p class="text-[8px] font-black tracking-[0.3em] text-white/40 uppercase">BEJANA WAKTU</p>
+
+                <div class="divider-glow h-[1px] w-full rounded-full"></div>
+
+                <div class="flex items-center justify-center gap-3">
+
+                    <a href="https://www.instagram.com/bejanawaktu" target="_blank" class="social-icon-btn w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center" aria-label="Instagram">
+                        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.tiktok.com/@tubianest" target="_blank" class="social-icon-btn w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center" aria-label="TikTok">
+                        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.youtube.com/anestmotion" target="_blank" class="social-icon-btn w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center" aria-label="YouTube">
+                        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.twitter.com/bejanawaktu" target="_blank" class="social-icon-btn w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center" aria-label="X (Twitter)">
+                        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.facebook.com/bejanawaktu/" target="_blank" class="social-icon-btn w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center" aria-label="Facebook">
+                        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+
+                </div>
+
+                <div class="divider-glow h-[1px] w-3/4 rounded-full"></div>
+
+                <div class="flex items-center justify-center gap-3 flex-wrap">
+                    <a href="mailto:mail.tobianest@gmail.com" class="text-[7px] text-white/50 hover:text-white/80 transition tracking-wide uppercase">Gmail</a>
+                </div>
+
+                <p class="text-[6.5px] text-white/30 text-center leading-relaxed tracking-wide">
+                    © 2026 Anest Bejana Waktu · photoacademy.id.<br>All Rights Reserved.
+                </p>
+
+            </div>
+
+            <div class="h-4"></div>
+
+        </footer>
+        </main>
+
+    <div id="reelModal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center">
+        <video id="modalVideo" controls autoplay class="w-[90%] max-w-[350px] rounded-xl shadow-2xl"></video>
+        <button onclick="closeReel()" class="absolute top-5 right-5 text-white text-xl">✕</button>
+    </div>
+
+    <script>
+        // Reel modal
+        function openReel(videoId) {
+            const modal = document.getElementById('reelModal');
+            const video = document.getElementById('modalVideo');
+            const sources = {
+                video1: "https://www.w3schools.com/html/mov_bbb.mp4",
+                video2: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+                video3: "https://www.w3schools.com/html/movie.mp4"
+            };
+            video.src = sources[videoId];
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        function closeReel() {
+            const modal = document.getElementById('reelModal');
+            const video = document.getElementById('modalVideo');
+            video.pause();
+            video.src = "";
+            modal.classList.add('hidden');
+        }
+
+        // Hero product switcher & data
+        const productData = {
+            1: {
+                title: "HALLO, I'M <br> <span class='text-brandGreen'>ANEST</span>",
+                subtitle: "Portrait & Commercial Photographer",
+                desc: "Fotografer portrait & commercial profesional. Sejak 2024 mendirikan @photoacademy.id sebagai wadah belajar fotografi untuk semua level photographer.",
+                imgSrc: "https://www.image2url.com/r2/default/images/1776920598087-cc7cb7eb-efb2-44b3-8de4-371efa4daad1.png",
+                linkUrl: "https://photoacademy.id",
+                isLarge: true 
+            },
+            2: {
+                title: "PHOTO <br> <span class='text-brandGreen'>ACADEMY</span>",
+                subtitle: "Platform Belajar Fotografi",
+                desc: "Wadah bagi photographer baru yang ingin masuk industri, dan photographer lama yang ingin level up atau coba skill baru bersama @photoacademy.id.",
+                imgSrc: "https://www.image2url.com/r2/default/images/1776922841749-bb6f9832-8736-419d-a4f3-9b723dc324d5.png",
+                linkUrl: "https://photoacademy.id",
+                isLarge: true 
+            },
+            3: {
+                title: "UPGRADE <br> <span class='text-brandGreen'>YOUR SKILL</span>",
+                subtitle: "Workshop & Webinar",
+                desc: "Basic Lighting, Basic Retouching, Advanced Lighting, Lighting for MUA, dan Webinar — tersedia untuk semua level photographer di photoacademy.id.",
+                imgSrc: "https://www.image2url.com/r2/default/images/1776922962627-29b28248-a3f8-4d97-8ded-ec6434809fc2.png",
+                linkUrl: "https://photoacademy.id",
+                isLarge: true 
+            }
+        };
+
+        // Auto-slide state
+        let heroSlideInterval;
+        let currentHeroIdx = 1;
+
+        function startHeroAutoSlide() {
+            heroSlideInterval = setInterval(() => {
+                currentHeroIdx = currentHeroIdx >= 3 ? 1 : currentHeroIdx + 1;
+                changeHeroProduct(currentHeroIdx, false);
+            }, 4000); 
+        }
+
+        function resetHeroAutoSlide() {
+            clearInterval(heroSlideInterval);
+            startHeroAutoSlide();
+        }
+
+        function changeHeroProduct(index, isManual = false) {
+            currentHeroIdx = index;
+            // Kalau diklik manual, timer kita reset biar gak buru-buru ganti sendiri
+            if (isManual) resetHeroAutoSlide();
+
+            const data = productData[index];
+            document.getElementById('hero-title').innerHTML = data.title;
+            document.getElementById('hero-subtitle').innerText = data.subtitle;
+            document.getElementById('hero-desc').innerText = data.desc;
+            document.getElementById('hero-btn').href = data.linkUrl;
+            
+            const heroImg = document.getElementById('main-hero-img');
+            const imgContainer = document.getElementById('hero-img-container');
+            const vertText = document.getElementById('hero-vertical-text');
+            
+            heroImg.src = data.imgSrc;
+
+            // Logic styling dinamis (Slide 1 vs Slide 2 & 3)
+            if (data.isLarge) {
+                // Style Slide 1 (Besar, nempel bawah, transparan)
+                imgContainer.className = "absolute right-[-10px] bottom-0 w-full flex justify-end z-0 pointer-events-none transition-all duration-500";
+                heroImg.className = "w-[220px] drop-shadow-2xl fade-in pointer-events-auto opacity-30 object-contain";
+                vertText.classList.add('hidden');
+            } else {
+                // Style Slide 2 & 3 (Kecil, di atas, gak transparan)
+                imgContainer.className = "absolute right-[-10px] top-[70px] w-full flex justify-end z-20 pointer-events-none transition-all duration-500";
+                heroImg.className = "w-32 drop-shadow-2xl rounded-xl fade-in pointer-events-auto opacity-100 object-cover";
+                vertText.classList.remove('hidden');
+            }
+
+            // Memicu animasi pudar-muncul (Fade In)
+            ['hero-title', 'hero-subtitle', 'hero-desc', 'main-hero-img', 'hero-btn'].forEach(id => {
+                const el = document.getElementById(id);
+                el.classList.remove('fade-in');
+                void el.offsetWidth; // trigger reflow biar animasinya kepanggil ulang
+                el.classList.add('fade-in');
+            });
+
+            // Ganti border thumbnail aktif
+            document.querySelectorAll('.hero-thumb').forEach(thumb => {
+                thumb.classList.remove('border-white');
+                thumb.classList.add('border-transparent');
+            });
+            const activeThumb = document.getElementById('hero-thumb-' + index);
+            activeThumb.classList.remove('border-transparent');
+            activeThumb.classList.add('border-white');
+        }
+
+        // Category tabs
+        function checkArrowVisibility(categoryName) {
+            const targetCarousel = document.getElementById('carousel-' + categoryName);
+            const swipeArrow = document.getElementById('swipe-indicator');
+            if (targetCarousel && swipeArrow) {
+                const cardCount = targetCarousel.querySelectorAll('.product-card-new').length;
+                swipeArrow.classList.toggle('hidden', cardCount <= 2);
+            }
+        }
+        
+        function changeCategory(categoryName) {
+            document.querySelectorAll('.carousel-content').forEach(carousel => {
+                carousel.classList.add('hidden');
+                carousel.classList.remove('flex');
+            });
+            const targetCarousel = document.getElementById('carousel-' + categoryName);
+            if (targetCarousel) {
+                targetCarousel.classList.remove('hidden');
+                targetCarousel.classList.add('flex');
+            }
+            document.querySelectorAll('.tab-btn').forEach(tab => {
+                tab.classList.remove('bg-white', 'text-darkBg');
+                tab.classList.add('text-white');
+            });
+            const activeTab = document.getElementById('tab-' + categoryName);
+            if (activeTab) {
+                activeTab.classList.remove('text-white');
+                activeTab.classList.add('bg-white', 'text-darkBg');
+            }
+            checkArrowVisibility(categoryName);
+        }
+
+        // Zoom card (new style)
+        function zoomCardNew(clickedCard) {
+            const isAlreadyZoomed = clickedCard.classList.contains('zoomed');
+            document.querySelectorAll('.product-card-new').forEach(card => {
+                card.classList.remove('zoomed');
+                card.style.zIndex = '';
+            });
+            if (!isAlreadyZoomed) {
+                clickedCard.classList.add('zoomed');
+                clickedCard.style.zIndex = '30';
+            }
+        }
+
+        function zoomCard(clickedCard) { zoomCardNew(clickedCard); }
+
+        // Auto BG slider
+        let currentBgSlide = 0;
+        const totalBgSlides = 3;
+        setInterval(() => {
+            currentBgSlide = (currentBgSlide + 1) % totalBgSlides;
+            const bgSlider = document.getElementById('auto-bg-slider');
+            if (bgSlider) bgSlider.style.transform = `translateX(-${currentBgSlide * 100}%)`;
+        }, 3500);
+
+        window.onload = function() {
+            checkArrowVisibility('drinks');
+            startHeroAutoSlide(); // Jalankan slide otomatis pertama kali web diload
+        };
+    </script>
+</body>
+</html>
