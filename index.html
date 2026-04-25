@@ -37,13 +37,12 @@
             50% { opacity: 1; transform: scale(1.15) translateX(3px); }
         }
 
-        /* Footer social icon hover glow */
+        /* Footer social icon hover glow REMOVED */
         .social-icon-btn {
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            transition: transform 0.2s ease, background 0.2s ease;
         }
         .social-icon-btn:hover {
             transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 0 14px rgba(0,112,74,0.55);
             background: rgba(0,112,74,0.25);
         }
         /* Divider line shimmer */
@@ -51,24 +50,22 @@
             background: linear-gradient(90deg, transparent, rgba(0,112,74,0.6), rgba(255,255,255,0.25), rgba(0,112,74,0.6), transparent);
         }
 
-        /* ── PRODUCT CARD REDESIGN ── */
+        /* ── PRODUCT CARD REDESIGN (Shadow Removed) ── */
         .product-card-new {
             flex-shrink: 0;
             width: 140px;
             cursor: pointer;
             position: relative;
-            transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
+            transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
             border-radius: 18px;
             overflow: hidden;
             background: #162e25;
             border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.35);
             user-select: none;
         }
         .product-card-new.zoomed {
             transform: scale(1.07) translateY(-5px);
             z-index: 30;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.6);
         }
         .product-card-new .card-cover {
             width: 100%;
@@ -130,9 +127,9 @@
         }
     </style>
 </head>
-<body class="bg-darkBg text-white font-sans min-h-screen">
+<body class="bg-transparent text-white font-sans min-h-screen">
 
-    <main class="w-full max-w-[375px] mx-auto relative overflow-x-hidden">
+    <main class="w-full max-w-[375px] mx-auto relative overflow-x-hidden bg-darkBg">
 
         <header class="relative px-5 pt-16 pb-10 min-h-[300px]">
             
@@ -145,9 +142,9 @@
                     <p id="hero-desc" class="text-[9px] text-gray-400 text-justify mb-4 w-[65%] leading-relaxed fade-in">Fotografer portrait & commercial profesional. Sejak 2024 mendirikan @photoacademy.id sebagai wadah belajar fotografi untuk semua level photographer.</p>
                     
                     <div class="flex items-center gap-3">
-                        <a id="hero-btn" href="https://www.instagram.com/bejanawaktu" target="_blank" class="flex items-center justify-center bg-white text-brandGreen font-bold px-5 h-8 rounded-full text-[10px] shadow-lg transition hover:bg-gray-100 fade-in">DM Me!</a>
+                        <a id="hero-btn" href="https://www.instagram.com/bejanawaktu" target="_blank" class="flex items-center justify-center bg-white text-brandGreen font-bold px-5 h-8 rounded-full text-[10px] transition hover:bg-gray-100 fade-in">DM Me!</a>
 
-                        <div class="flex items-center justify-center gap-2 bg-brandGreen px-2 h-8 rounded-full shadow-lg fade-in">
+                        <div class="flex items-center justify-center gap-2 bg-brandGreen px-2 h-8 rounded-full fade-in">
                             <img id="hero-thumb-1" onclick="changeHeroProduct(1, true)" src="https://www.image2url.com/r2/default/images/1776653916737-854e5d87-7933-4fbb-ad71-603fbb0edcd4.png" class="hero-thumb w-6 h-6 object-cover rounded-full cursor-pointer border-[1.5px] border-white transition hover:opacity-80">
                             <img id="hero-thumb-2" onclick="changeHeroProduct(2, true)" src="https://www.image2url.com/r2/default/images/1776654425380-9bfba9c7-1dea-4426-babf-7e355384d848.png" class="hero-thumb w-6 h-6 object-cover rounded-full cursor-pointer border-[1.5px] border-transparent transition hover:opacity-80">
                             <img id="hero-thumb-3" onclick="changeHeroProduct(3, true)" src="https://www.image2url.com/r2/default/images/1776655063572-4f5cf550-9b4b-4bfd-b0b7-d9b2731ced79.png" class="hero-thumb w-6 h-6 object-cover rounded-full cursor-pointer border-[1.5px] border-transparent transition hover:opacity-80">
@@ -157,7 +154,7 @@
             </div>
 
             <div id="hero-img-container" class="absolute right-[-10px] bottom-0 w-full flex justify-end z-0 pointer-events-none">
-                <img id="main-hero-img" src="https://www.image2url.com/r2/default/images/1776920598087-cc7cb7eb-efb2-44b3-8de4-371efa4daad1.png" alt="Produk Pilihan" class="w-[220px] drop-shadow-2xl fade-in pointer-events-auto opacity-30 object-contain">
+                <img id="main-hero-img" src="https://www.image2url.com/r2/default/images/1776920598087-cc7cb7eb-efb2-44b3-8de4-371efa4daad1.png" alt="Produk Pilihan" class="w-[220px] fade-in pointer-events-auto opacity-30 object-contain">
             </div>
             
             <div id="hero-vertical-text" class="absolute right-3 top-8 vertical-text text-6xl font-extrabold text-white opacity-10 tracking-widest uppercase z-0 pointer-events-none hidden">
@@ -176,12 +173,11 @@
 
         <section class="relative mb-6 overflow-hidden min-h-[260px]">
             <div id="swipe-indicator" class="absolute right-3 top-[52%] transform -translate-y-1/2 z-30 pointer-events-none hidden pulse-subtle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
                 </svg>
             </div>
 
-            <!-- EBOOK -->
             <div id="carousel-drinks" class="carousel-content flex overflow-x-auto gap-3 hide-scrollbar py-6 pl-5 pr-10 fade-in snap-x snap-mandatory relative z-10">
 
                 <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
@@ -238,7 +234,6 @@
 
             </div>
 
-            <!-- REKAMAN -->
             <div id="carousel-food" class="carousel-content hidden flex overflow-x-auto gap-3 hide-scrollbar py-6 pl-5 pr-10 fade-in snap-x snap-mandatory relative z-10">
 
                 <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
@@ -282,7 +277,6 @@
 
             </div>
 
-            <!-- VIDEO COURSE -->
             <div id="carousel-athome" class="carousel-content hidden flex overflow-x-auto gap-3 hide-scrollbar py-6 pl-5 pr-10 fade-in snap-x snap-mandatory relative z-10">
 
                 <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
@@ -313,7 +307,6 @@
 
             </div>
 
-            <!-- MENTORING -->
             <div id="carousel-merch" class="carousel-content hidden flex overflow-x-auto gap-3 hide-scrollbar py-6 pl-5 pr-10 fade-in snap-x snap-mandatory relative z-10">
 
                 <div onclick="zoomCardNew(this)" class="product-card-new snap-center">
@@ -333,7 +326,7 @@
         </section>
 
         <section class="px-4 py-6">
-            <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl min-h-[400px] flex flex-col items-center pt-8 pb-8 border border-white/10 bg-darkBg">
+            <div class="relative rounded-[2.5rem] overflow-hidden min-h-[400px] flex flex-col items-center pt-8 pb-8 border border-white/10 bg-darkBg">
                 
                 <div class="absolute inset-0 z-0">
                     <div id="auto-bg-slider" class="flex w-full h-full transition-transform duration-700 ease-in-out">
@@ -352,40 +345,40 @@
                     </div>
                 </div>
 
-                <h2 class="text-3xl font-black uppercase leading-tight text-center relative z-10 text-white drop-shadow-xl mt-2 mb-5">EXCLUSIVE<br>SESSION</h2>
+                <h2 class="text-3xl font-black uppercase leading-tight text-center relative z-10 text-white mt-2 mb-5">EXCLUSIVE<br>SESSION</h2>
                 
                 <div class="relative z-10 flex justify-center mb-6">
-                     <img src="https://www.image2url.com/r2/default/images/1777005809936-95c43f7b-c76b-47a2-be53-28c5e2a4f1f9.png" class="w-24 drop-shadow-2xl rounded-xl border border-white/20">
+                     <img src="https://www.image2url.com/r2/default/images/1777005809936-95c43f7b-c76b-47a2-be53-28c5e2a4f1f9.png" class="w-24 rounded-xl border border-white/20">
                 </div>
 
-                <div class="absolute top-[55%] left-[-20%] w-[140%] bg-brandGreen py-2 transform -rotate-6 z-0 flex justify-between overflow-hidden shadow-lg opacity-60 pointer-events-none">
+                <div class="absolute top-[55%] left-[-20%] w-[140%] bg-brandGreen py-2 transform -rotate-6 z-0 flex justify-between overflow-hidden opacity-60 pointer-events-none">
                      <span class="font-bold tracking-widest text-[10px] mx-3 whitespace-nowrap">PHOTOACADEMY</span>
                      <span class="font-bold tracking-widest text-[10px] mx-3 whitespace-nowrap">PHOTOACADEMY</span>
                      <span class="font-bold tracking-widest text-[10px] mx-3 whitespace-nowrap">PHOTOACADEMY</span>
                 </div>
 
                 <div class="px-6 relative z-10 flex flex-col items-center mt-auto w-full">
-                    <p class="text-[9px] text-gray-200 text-center leading-relaxed drop-shadow-md font-medium mb-5 w-[90%]">Private Lightning Session April 2026 — sesi eksklusif bersama Anest. Slot sangat terbatas, hanya tersedia untuk klien terpilih. Rp 6.000.000</p>
-                    <a href="private.html" target="_blank" class="inline-block bg-brandGreen border border-white/20 text-white text-[9px] font-bold py-2 px-6 rounded-full shadow-lg transition hover:bg-white hover:text-brandGreen">BOOK NOW</a>
+                    <p class="text-[9px] text-gray-200 text-center leading-relaxed font-medium mb-5 w-[90%]">Private Lightning Session April 2026 — sesi eksklusif bersama Anest. Slot sangat terbatas, hanya tersedia untuk klien terpilih. Rp 6.000.000</p>
+                    <a href="private.html" target="_blank" class="inline-block bg-brandGreen border border-white/20 text-white text-[9px] font-bold py-2 px-6 rounded-full transition hover:bg-white hover:text-brandGreen">BOOK NOW</a>
                 </div>
             </div>
         </section>
 
         <section class="px-5 py-8 mt-2">
             <div class="flex justify-center mb-8">
-                <div class="bg-gradient-to-r from-brandGreen to-lightGreen text-white px-8 py-2 rounded-full font-black text-[10px] tracking-widest shadow-[0_0_15px_rgba(0,112,74,0.6)] border border-white/20">
+                <div class="bg-gradient-to-r from-brandGreen to-lightGreen text-white px-8 py-2 rounded-full font-black text-[10px] tracking-widest border border-white/20">
                     MOST POPULAR
                 </div>
             </div>
 
             <div class="flex flex-col gap-5">
-                <div class="bg-gradient-to-br from-[#123128] to-darkBg p-4 rounded-3xl flex items-center relative shadow-2xl border border-brandGreen/50 overflow-hidden group">
-                    <div class="absolute -left-10 top-0 w-32 h-32 bg-brandGreen rounded-full blur-3xl opacity-30"></div>
-                    <div class="absolute top-0 right-4 bg-yellow-400 text-yellow-900 font-black text-[8px] px-3 py-1 rounded-b-lg shadow-md z-20 tracking-wider">
+                <div class="bg-gradient-to-br from-[#123128] to-darkBg p-4 rounded-3xl flex items-center relative border border-brandGreen/50 overflow-hidden group">
+                    
+                    <div class="absolute top-0 right-4 bg-yellow-400 text-yellow-900 font-black text-[8px] px-3 py-1 rounded-b-lg z-20 tracking-wider">
                         #1 BEST SELLER
                     </div>
 
-                    <div class="w-24 h-24 flex-shrink-0 bg-white rounded-2xl p-1 shadow-inner relative z-10">
+                    <div class="w-24 h-24 flex-shrink-0 bg-white rounded-2xl p-1 relative z-10">
                         <img src="https://www.image2url.com/r2/default/images/1777000986061-bae6488a-c185-4a01-970d-d68af1e5aed1.png" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
                     </div>
 
@@ -396,33 +389,33 @@
                         </div>
                         <h3 class="text-white font-black text-sm tracking-wide mb-1">HOW I SHOT THIS SERIES</h3>
                         <p class="text-[7px] text-gray-300 mb-3 line-clamp-2 leading-tight">Koleksi lengkap How I Shot This. Panduan komprehensif teknik fotografi portrait & commercial dari Anest.</p>
-                        <a href="how i shot this series.html" target="_blank" class="w-max bg-brandGreen text-white py-1.5 px-5 rounded-full text-[8px] font-bold shadow-lg transition hover:scale-105 border border-white/20">GET IT NOW</a>
+                        <a href="how i shot this series.html" target="_blank" class="w-max bg-brandGreen text-white py-1.5 px-5 rounded-full text-[8px] font-bold transition hover:scale-105 border border-white/20">GET IT NOW</a>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-lightGreen/40 p-3 rounded-3xl flex flex-col relative pt-4 shadow-lg border border-white/10 group overflow-hidden">
+                    <div class="bg-lightGreen/40 p-3 rounded-3xl flex flex-col relative pt-4 border border-white/10 group overflow-hidden">
                         <div class="absolute top-0 left-4 bg-gray-300 text-gray-800 font-black text-[8px] px-2 py-0.5 rounded-b-md z-10">#2</div>
-                        <div class="w-full h-24 bg-white rounded-2xl p-1 shadow-inner relative z-10 mb-3">
+                        <div class="w-full h-24 bg-white rounded-2xl p-1 relative z-10 mb-3">
                             <img src="https://www.image2url.com/r2/default/images/1776998476824-c91e884e-4148-4329-9665-479c147d480e.png" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <h3 class="text-white font-extrabold text-[10px] tracking-wide mb-1">HOW I SHOT THIS VOL. 3.0</h3>
                         <div class="flex items-center gap-1 mb-3">
                             <span class="text-yellow-400 text-[8px]">★★★★☆</span>
                         </div>
-                        <a href="how i shot this photo 1.html" target="_blank" class="block w-full bg-white text-brandGreen py-2 rounded-full text-[8px] font-bold shadow-md text-center transition hover:bg-gray-200 mt-auto">ADD TO CART</a>
+                        <a href="how i shot this photo 1.html" target="_blank" class="block w-full bg-white text-brandGreen py-2 rounded-full text-[8px] font-bold text-center transition hover:bg-gray-200 mt-auto">ADD TO CART</a>
                     </div>
 
-                    <div class="bg-lightGreen/40 p-3 rounded-3xl flex flex-col relative pt-4 shadow-lg border border-white/10 group overflow-hidden">
+                    <div class="bg-lightGreen/40 p-3 rounded-3xl flex flex-col relative pt-4 border border-white/10 group overflow-hidden">
                         <div class="absolute top-0 left-4 bg-orange-300 text-orange-900 font-black text-[8px] px-2 py-0.5 rounded-b-md z-10">#3</div>
-                        <div class="w-full h-24 bg-white rounded-2xl p-1 shadow-inner relative z-10 mb-3">
+                        <div class="w-full h-24 bg-white rounded-2xl p-1 relative z-10 mb-3">
                             <img src="https://www.image2url.com/r2/default/images/1777003565871-fc3d5703-dcee-46b5-a18b-30bb47a3011e.png" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <h3 class="text-white font-extrabold text-[10px] tracking-wide mb-1">BASIC PORTRAIT RETOUCHING</h3>
                         <div class="flex items-center gap-1 mb-3">
                             <span class="text-yellow-400 text-[8px]">★★★★☆</span>
                         </div>
-                        <a href="rekaman1.html" target="_blank" class="block w-full bg-white text-brandGreen py-2 rounded-full text-[8px] font-bold shadow-md text-center transition hover:bg-gray-200 mt-auto">ADD TO CART</a>
+                        <a href="rekaman1.html" target="_blank" class="block w-full bg-white text-brandGreen py-2 rounded-full text-[8px] font-bold text-center transition hover:bg-gray-200 mt-auto">ADD TO CART</a>
                     </div>
                 </div>
             </div>
@@ -436,8 +429,7 @@
             </div>
             
             <div class="flex-1 flex flex-wrap justify-center gap-2">
-                <!-- DATABASE FREELANCER: briefcase icon -->
-                <a href="https://forms.gle/ZC89ajyX9dwaJz6a8" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center shadow-lg transition hover:-translate-y-1">
+                <a href="https://forms.gle/ZC89ajyX9dwaJz6a8" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center transition hover:-translate-y-1">
                     <div class="w-8 h-8 rounded-full bg-[#e6f4ef] flex items-center justify-center mb-1.5">
                         <svg class="w-4 h-4 text-[#00704a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12.01"/><path d="M2 12h20"/>
@@ -446,8 +438,7 @@
                     <h4 class="font-extrabold text-[7px] text-brandGreen text-center leading-tight">DATABASE FREELANCER</h4>
                     <p class="text-[5px] text-gray-500 text-center mt-0.5">Join · Maret 2026</p>
                 </a>
-                <!-- WORKSHOP: calendar icon -->
-                <a href="https://bit.ly/daftarworkshopPA25" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center shadow-lg transition hover:-translate-y-1">
+                <a href="https://bit.ly/daftarworkshopPA25" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center transition hover:-translate-y-1">
                     <div class="w-8 h-8 rounded-full bg-[#e6f4ef] flex items-center justify-center mb-1.5">
                         <svg class="w-4 h-4 text-[#00704a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
@@ -456,8 +447,7 @@
                     <h4 class="font-extrabold text-[7px] text-brandGreen text-center leading-tight">WORKSHOP APRIL 2026</h4>
                     <p class="text-[5px] text-gray-500 text-center mt-0.5">Form Pendaftaran</p>
                 </a>
-                <!-- AFFILIATE: share/link icon -->
-                <a href="https://forms.gle/kVSadVvrPndePqoZ8" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center shadow-lg transition hover:-translate-y-1">
+                <a href="https://forms.gle/kVSadVvrPndePqoZ8" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center transition hover:-translate-y-1">
                     <div class="w-8 h-8 rounded-full bg-[#e6f4ef] flex items-center justify-center mb-1.5">
                         <svg class="w-4 h-4 text-[#00704a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
@@ -466,8 +456,7 @@
                     <h4 class="font-extrabold text-[7px] text-brandGreen text-center leading-tight">JOIN AFFILIATE TEAM</h4>
                     <p class="text-[5px] text-gray-500 text-center mt-0.5">Form Daftar</p>
                 </a>
-                <!-- COMMUNITY: users/group icon -->
-                <a href="https://forms.gle/XV4p7J4sKf1sLjkp7" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center shadow-lg transition hover:-translate-y-1 mt-1">
+                <a href="https://forms.gle/XV4p7J4sKf1sLjkp7" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center transition hover:-translate-y-1 mt-1">
                     <div class="w-8 h-8 rounded-full bg-[#e6f4ef] flex items-center justify-center mb-1.5">
                         <svg class="w-4 h-4 text-[#00704a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
@@ -476,8 +465,7 @@
                     <h4 class="font-extrabold text-[7px] text-brandGreen text-center leading-tight">PHOTO ACADEMY COMMUNITY</h4>
                     <p class="text-[5px] text-gray-500 text-center mt-0.5">WhatsApp Group</p>
                 </a>
-                <!-- LIGHTING CLUB: lightbulb/aperture icon -->
-                <a href="https://chat.whatsapp.com/I5WuNLihYl0LpRZDCGHGtP" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center shadow-lg transition hover:-translate-y-1 mt-1">
+                <a href="https://chat.whatsapp.com/I5WuNLihYl0LpRZDCGHGtP" target="_blank" class="w-[30%] bg-white text-darkBg rounded-xl p-2 flex flex-col items-center justify-center transition hover:-translate-y-1 mt-1">
                     <div class="w-8 h-8 rounded-full bg-[#e6f4ef] flex items-center justify-center mb-1.5">
                         <svg class="w-4 h-4 text-[#00704a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"/><line x1="14.31" y1="8" x2="20.05" y2="17.94"/><line x1="9.69" y1="8" x2="21.17" y2="8"/><line x1="7.38" y1="12" x2="13.12" y2="2.06"/><line x1="9.69" y1="16" x2="3.95" y2="6.06"/><line x1="14.31" y1="16" x2="2.83" y2="16"/><line x1="16.62" y1="12" x2="10.88" y2="21.94"/>
@@ -490,9 +478,6 @@
         </section>
 
         <section class="px-5 pt-6 pb-10 relative overflow-hidden">
-
-            <div class="absolute top-10 left-0 w-32 h-32 bg-brandGreen rounded-full blur-[60px] opacity-20 pointer-events-none"></div>
-            <div class="absolute bottom-10 right-0 w-24 h-24 bg-brandGreen rounded-full blur-[50px] opacity-15 pointer-events-none"></div>
 
             <div class="flex items-center justify-between mb-5 relative z-10">
                 <div>
@@ -515,7 +500,7 @@
 
             <div class="flex gap-2.5 relative z-10" style="height: 300px;">
 
-                <div onclick="https://www.instagram.com/bejanawaktu/reel/DXEXUXJDlLT/" class="reel-card relative rounded-[22px] overflow-hidden cursor-pointer flex-shrink-0 shadow-2xl border border-white/10 group" style="width: 55%; height: 100%;">
+                <div onclick="https://www.instagram.com/bejanawaktu/reel/DXEXUXJDlLT/" class="reel-card relative rounded-[22px] overflow-hidden cursor-pointer flex-shrink-0 border border-white/10 group" style="width: 55%; height: 100%;">
                     <video autoplay muted loop playsinline class="w-full h-full object-cover scale-[1.02] group-hover:scale-[1.06] transition-transform duration-700">
                         <source src="https://www.image2url.com/r2/default/videos/1777006600163-0fc2bdae-c7ae-4861-821a-ff97fd930256.mp4" type="video/mp4">
                     </video>
@@ -527,7 +512,7 @@
                     </div>
 
                     <div class="absolute inset-0 flex items-center justify-center z-10 opacity-70 group-hover:opacity-0 transition-opacity duration-300">
-                        <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-lg">
+                        <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center">
                             <svg class="w-4 h-4 text-white ml-0.5" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
@@ -551,7 +536,7 @@
 
                 <div class="flex flex-col gap-2.5 flex-1">
 
-                    <div onclick="https://www.instagram.com/bejanawaktu/reel/DW1XOmyiZbI/" class="reel-card relative rounded-[18px] overflow-hidden cursor-pointer shadow-xl border border-white/10 group flex-1">
+                    <div onclick="https://www.instagram.com/bejanawaktu/reel/DW1XOmyiZbI/" class="reel-card relative rounded-[18px] overflow-hidden cursor-pointer border border-white/10 group flex-1">
                         <video autoplay muted loop playsinline class="w-full h-full object-cover scale-[1.02] group-hover:scale-[1.07] transition-transform duration-700">
                             <source src="https://www.image2url.com/r2/default/videos/1777006756562-f1b2d46a-038b-4c71-9213-18364e800d2c.mp4" type="video/mp4">
                         </video>
@@ -573,7 +558,7 @@
                         </div>
                     </div>
 
-                    <div onclick="https://www.instagram.com/bejanawaktu/reel/DU58I79jyIL/" class="reel-card relative rounded-[18px] overflow-hidden cursor-pointer shadow-xl border border-white/10 group flex-1">
+                    <div onclick="https://www.instagram.com/bejanawaktu/reel/DU58I79jyIL/" class="reel-card relative rounded-[18px] overflow-hidden cursor-pointer border border-white/10 group flex-1">
                         <video autoplay muted loop playsinline class="w-full h-full object-cover scale-[1.02] group-hover:scale-[1.07] transition-transform duration-700">
                             <source src="https://www.image2url.com/r2/default/videos/1777006989614-7394fedc-71fa-4ae4-bec4-2348bb533b6f.mp4" type="video/mp4">
                         </video>
@@ -609,7 +594,7 @@
         </section>
         <footer class="px-5 pb-8 pt-2">
 
-            <div class="rounded-[2rem] border border-white/15 bg-white/5 backdrop-blur-sm px-5 py-6 flex flex-col items-center gap-5 shadow-[inset_0_0_30px_rgba(255,255,255,0.03)]">
+            <div class="rounded-[2rem] border border-white/15 bg-white/5 backdrop-blur-sm px-5 py-6 flex flex-col items-center gap-5">
 
                 <p class="text-[8px] font-black tracking-[0.3em] text-white/40 uppercase">BEJANA WAKTU</p>
 
@@ -667,32 +652,11 @@
         </main>
 
     <div id="reelModal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center">
-        <video id="modalVideo" controls autoplay class="w-[90%] max-w-[350px] rounded-xl shadow-2xl"></video>
+        <video id="modalVideo" controls autoplay class="w-[90%] max-w-[350px] rounded-xl"></video>
         <button onclick="closeReel()" class="absolute top-5 right-5 text-white text-xl">✕</button>
     </div>
 
     <script>
-        // Reel modal
-        function openReel(videoId) {
-            const modal = document.getElementById('reelModal');
-            const video = document.getElementById('modalVideo');
-            const sources = {
-                video1: "https://www.w3schools.com/html/mov_bbb.mp4",
-                video2: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-                video3: "https://www.w3schools.com/html/movie.mp4"
-            };
-            video.src = sources[videoId];
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-        function closeReel() {
-            const modal = document.getElementById('reelModal');
-            const video = document.getElementById('modalVideo');
-            video.pause();
-            video.src = "";
-            modal.classList.add('hidden');
-        }
-
         // Hero product switcher & data
         const productData = {
             1: {
@@ -721,7 +685,6 @@
             }
         };
 
-        // Auto-slide state
         let heroSlideInterval;
         let currentHeroIdx = 1;
 
@@ -739,7 +702,6 @@
 
         function changeHeroProduct(index, isManual = false) {
             currentHeroIdx = index;
-            // Kalau diklik manual, timer kita reset biar gak buru-buru ganti sendiri
             if (isManual) resetHeroAutoSlide();
 
             const data = productData[index];
@@ -754,28 +716,23 @@
             
             heroImg.src = data.imgSrc;
 
-            // Logic styling dinamis (Slide 1 vs Slide 2 & 3)
             if (data.isLarge) {
-                // Style Slide 1 (Besar, nempel bawah, transparan)
                 imgContainer.className = "absolute right-[-10px] bottom-0 w-full flex justify-end z-0 pointer-events-none transition-all duration-500";
-                heroImg.className = "w-[220px] drop-shadow-2xl fade-in pointer-events-auto opacity-30 object-contain";
+                heroImg.className = "w-[220px] fade-in pointer-events-auto opacity-30 object-contain";
                 vertText.classList.add('hidden');
             } else {
-                // Style Slide 2 & 3 (Kecil, di atas, gak transparan)
                 imgContainer.className = "absolute right-[-10px] top-[70px] w-full flex justify-end z-20 pointer-events-none transition-all duration-500";
-                heroImg.className = "w-32 drop-shadow-2xl rounded-xl fade-in pointer-events-auto opacity-100 object-cover";
+                heroImg.className = "w-32 rounded-xl fade-in pointer-events-auto opacity-100 object-cover";
                 vertText.classList.remove('hidden');
             }
 
-            // Memicu animasi pudar-muncul (Fade In)
             ['hero-title', 'hero-subtitle', 'hero-desc', 'main-hero-img', 'hero-btn'].forEach(id => {
                 const el = document.getElementById(id);
                 el.classList.remove('fade-in');
-                void el.offsetWidth; // trigger reflow biar animasinya kepanggil ulang
+                void el.offsetWidth;
                 el.classList.add('fade-in');
             });
 
-            // Ganti border thumbnail aktif
             document.querySelectorAll('.hero-thumb').forEach(thumb => {
                 thumb.classList.remove('border-white');
                 thumb.classList.add('border-transparent');
@@ -785,7 +742,6 @@
             activeThumb.classList.add('border-white');
         }
 
-        // Category tabs
         function checkArrowVisibility(categoryName) {
             const targetCarousel = document.getElementById('carousel-' + categoryName);
             const swipeArrow = document.getElementById('swipe-indicator');
@@ -817,7 +773,6 @@
             checkArrowVisibility(categoryName);
         }
 
-        // Zoom card (new style)
         function zoomCardNew(clickedCard) {
             const isAlreadyZoomed = clickedCard.classList.contains('zoomed');
             document.querySelectorAll('.product-card-new').forEach(card => {
@@ -830,9 +785,6 @@
             }
         }
 
-        function zoomCard(clickedCard) { zoomCardNew(clickedCard); }
-
-        // Auto BG slider
         let currentBgSlide = 0;
         const totalBgSlides = 3;
         setInterval(() => {
@@ -843,7 +795,7 @@
 
         window.onload = function() {
             checkArrowVisibility('drinks');
-            startHeroAutoSlide(); // Jalankan slide otomatis pertama kali web diload
+            startHeroAutoSlide();
         };
     </script>
 </body>
